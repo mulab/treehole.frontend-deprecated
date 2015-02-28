@@ -1,0 +1,22 @@
+node_modules/
+bower_components/
+public/assets
+
+##################################
+# IDE, editor, system related
+##################################
+
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
+
+*.iml
+
+## Directory-based project format:
+.idea/
+
+# OSX
+.DS_Store
+
+# Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*~
