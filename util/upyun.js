@@ -1,6 +1,6 @@
 'use strict';
 
-var md5 = require('MD5');
+var md5 = require("crypto-js/md5");
 var _ = require('lodash');
 var error = require('./error');
 
