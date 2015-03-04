@@ -19,7 +19,7 @@ router.post('/', function (req, res, next) {
   co(function* () {
     var content = req.param('content');
     if (_.isEmpty(content)) {
-      yield Promise.reject(error('Empty Content', 400));
+      throw error('Empty content.', 400);
     }
     var hole = {
       author: req.session.user,
@@ -84,7 +84,7 @@ router.post('/:id/comments', function (req, res, next) {
     var holeId = req.param('id');
     var text = req.param('comment-text');
     if (_.isEmpty(text)) {
-      yield Promise.reject(error('Empty Content', {status: 400}));
+      throw error('Empty content.', 400);
     }
     yield holeApi.post('holes', holeId, 'comments', {
       from_user: req.session.user,

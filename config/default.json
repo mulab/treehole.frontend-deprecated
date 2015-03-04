@@ -3,7 +3,13 @@
   "rest_request": {
     "treehole": {
       "base_url": "http://127.0.0.1:8000"
+    },
+    "tsinghua-auth": {
+      "base_url": "https://id.tsinghua.edu.cn/thuser/authapi"
     }
+  },
+  "tsinghua-auth": {
+    "appid": "ALL_ZHJW"
   },
   "upyun": {
     "treehole_images": {

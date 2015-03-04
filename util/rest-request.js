@@ -21,38 +21,39 @@ exports.use = function (configName) {
     var params = {};
     if (_.isPlainObject(_.last(args))) {
       params = _.last(args);
-      args = args.pop();
+      args.pop();
     }
     return { paths: args, params: params };
   }
 
-  function doRequest(method, url, params) {
-    return new Promise(function (resolve, reject) {
-      request({
-        method: method,
-        uri: url,
-        data: params,
-        json: true
-      }, function (err, res, data) {
-        if (err) {
-          return reject(err);
-        }
-        if (res.statusCode >= 400) {
-          return reject(error(data.message, res.statusCode));
-        }
-        resolve(data);
-      });
-    });
+  function errorHandler(resolve, reject) {
+    return function (err, res, data) {
+      if (err) {
+        return reject(err);
+      }
+      try {
+        data = JSON.parse(data);
+      } catch (err) {
+      }
+      if (res.statusCode >= 400) {
+        return reject(error(data.message, res.statusCode));
+      }
+      resolve(data);
+    };
   }
 
   return {
     get: function () {
       var result = extractParams(arguments);
-      return doRequest('GET', fullUrl(result.paths), result.params);
+      return new Promise(function (resolve, reject) {
+        request.get({ url: fullUrl(result.paths), qs: result.params }, errorHandler(resolve, reject));
+      });
     },
     post: function () {
       var result = extractParams(arguments);
-      return doRequest('POST', fullUrl(result.paths), result.params);
+      return new Promise(function (resolve, reject) {
+        request.post({ url: fullUrl(result.paths), form: result.params }, errorHandler(resolve, reject));
+      });
     }
   };
 };

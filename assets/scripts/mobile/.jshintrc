@@ -14,5 +14,8 @@
   "debug": true,
   "strict": true,
   "globals": {
+    "angular": true,
+    "ons": true,
+    "navi": true
   }
 }
