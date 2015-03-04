@@ -12,10 +12,11 @@ module.exports = {
   },
   resolve: {
     root: [
-      path.join(__dirname, 'bower_components'),
+      path.join(__dirname, 'public', 'bower_components'),
       path.join(__dirname, 'assets', 'scripts', 'mobile')
     ],
     alias: {
+      'uri': 'uri.js/src/URI.js'
     }
   },
   plugins: [

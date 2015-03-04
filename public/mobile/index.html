@@ -1,19 +1,25 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+
   <link rel="stylesheet" href="/bower_components/onsenui/build/css/onsenui.css" />
   <link rel="stylesheet" href="/bower_components/onsenui/build/css/onsen-css-components.css" />
   <link rel="stylesheet" href="/assets/mobile.css" />
+
   <script src="/bower_components/angular/angular.min.js"></script>
+  <script src="/bower_components/angular-route/angular-route.min.js"></script>
   <script src="/bower_components/onsenui/build/js/onsenui.min.js"></script>
   <script src="/assets/mobile.bundle.js"></script>
 </head>
-<body ng-app="myApp">
-<ons-navigator var="navigator">
-  <ons-page ng-controller="PageController">
-    <!-- Page content -->
-  </ons-page>
-</ons-navigator>
+
+<body ng-controller="AppController">
+  <ons-navigator var="navigator">
+    <ng-include src="'home/index.html'"></ng-include>
+  </ons-navigator>
 </body>
+
 </html>
