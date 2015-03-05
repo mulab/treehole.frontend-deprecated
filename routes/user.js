@@ -12,8 +12,8 @@ router.get('/login', function (req, res, next) {
     if (req.session.user) {
       return res.sendStatus(200);
     }
-    var username = req.param('username');
-    var password = req.param('password');
+    var username = req.query.username;
+    var password = req.query.password;
     if (_.isEmpty(username) || _.isEmpty(password)) {
       throw error('Invalid parameters.', 400);
     }

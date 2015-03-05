@@ -19,24 +19,29 @@ exports.use = function (configName) {
   function extractParams(args) {
     args = _.toArray(args);
     var params = {};
+    var parser = JSON.parse;
+    if (_.isFunction(_.last(args))) {
+      parser = _.last(args);
+      args.pop();
+    }
     if (_.isPlainObject(_.last(args))) {
       params = _.last(args);
       args.pop();
     }
-    return { paths: args, params: params };
+    return { paths: args, params: params, parser: parser };
   }
 
-  function errorHandler(resolve, reject) {
+  function callback(resolve, reject, parser) {
     return function (err, res, data) {
       if (err) {
         return reject(err);
       }
       try {
-        data = JSON.parse(data);
-      } catch (err) {
+        data = parser(data);
+      } catch (e) {
       }
       if (res.statusCode >= 400) {
-        return reject(error(data.message, res.statusCode));
+        return reject(error(data.message || data, res.statusCode));
       }
       resolve(data);
     };
@@ -46,13 +51,19 @@ exports.use = function (configName) {
     get: function () {
       var result = extractParams(arguments);
       return new Promise(function (resolve, reject) {
-        request.get({ url: fullUrl(result.paths), qs: result.params }, errorHandler(resolve, reject));
+        request.get({
+          url: fullUrl(result.paths),
+          qs: result.params
+        }, callback(resolve, reject, result.parser));
       });
     },
     post: function () {
       var result = extractParams(arguments);
       return new Promise(function (resolve, reject) {
-        request.post({ url: fullUrl(result.paths), form: result.params }, errorHandler(resolve, reject));
+        request.post({
+          url: fullUrl(result.paths),
+          form: result.params
+        }, callback(resolve, reject, result.parser));
       });
     }
   };

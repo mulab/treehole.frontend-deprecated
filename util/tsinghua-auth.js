@@ -8,16 +8,6 @@ function convertUserIp(userIp) {
   return userIp.replace(/./g, '_');
 }
 
-function parseResult(data) {
-  var result = {};
-  var parts = data.split(':');
-  for (var i = 0; i < parts.length; i++) {
-    var tmp = parts[i].split('=');
-    result[tmp[0]] = tmp[1];
-  }
-  return result;
-}
-
 function auth(username, password, userIp) {
   return tsinghuaAuthApi.post('login', appid, convertUserIp(userIp), {
     username: username,
@@ -32,11 +22,19 @@ function auth(username, password, userIp) {
 }
 
 function checkTicket(ticket, userIp) {
-  return tsinghuaAuthApi.get('checkticket', appid, ticket, convertUserIp(userIp))
+  return tsinghuaAuthApi.get('checkticket', appid, ticket, convertUserIp(userIp),
+    function (data) {
+      var result = {};
+      var parts = data.split(':');
+      for (var i = 0; i < parts.length; i++) {
+        var tmp = parts[i].split('=');
+        result[tmp[0]] = tmp[1];
+      }
+      return result;
+    })
     .then(function (data) {
-      var result = parseResult(data);
-      if (result.code === '0') {
-        return result;
+      if (data.code === '0') {
+        return data;
       } else {
         throw error('Authentication failed', 403);
       }
