@@ -9,6 +9,7 @@ var webpack = require('webpack');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
+var webserver = require('gulp-webserver');
 
 function errorHandler(moduleName) {
   return function (err) {
@@ -25,31 +26,49 @@ function webpackCallback(callback) {
     gutil.log('[webpack]', stats.toString({
       colors: true
     }));
-    callback();
+    if (callback) {
+      callback();
+    }
   };
 }
 
-gulp.task('build-stylesheets', function () {
-  return gulp.src('./assets/stylesheets/mobile/index.less')
+gulp.task('copy-polyfill', function () {
+  return gulp.src('./node_modules/babel-core/browser-polyfill.js').
+    pipe(gulp.dest('./public/assets'));
+});
+
+gulp.task('build-stylesheets-dev', function () {
+  return gulp.src('./stylesheets/mobile/index.less')
     .pipe(rename('mobile.bundle.less'))
     .pipe(plumber({ errorHandler: errorHandler('Less') }))
     .pipe(less({
       paths: [
-        path.join(__dirname, 'assets', 'stylesheets', 'mobile'),
-        path.join(__dirname, 'bower_components', 'onsenui', 'build', 'css')
+        path.join(__dirname, 'stylesheets', 'mobile')
+      ]
+    }))
+    .pipe(gulp.dest('./public/assets'));
+});
+
+gulp.task('build-stylesheets', function () {
+  return gulp.src('./stylesheets/mobile/index.less')
+    .pipe(rename('mobile.bundle.less'))
+    .pipe(plumber({ errorHandler: errorHandler('Less') }))
+    .pipe(less({
+      paths: [
+        path.join(__dirname, 'stylesheets', 'mobile')
       ]
     }))
     .pipe(minifyCSS())
     .pipe(gulp.dest('./public/assets'));
 });
 
-gulp.task('build-scripts-dev', function (callback) {
+gulp.task('build-scripts-dev', ['copy-polyfill'], function (callback) {
   var config = require('./webpack.config');
   config.devtool = 'source-map';
   webpack(config, webpackCallback(callback));
 });
 
-gulp.task('build-scripts', function (callback) {
+gulp.task('build-scripts', ['copy-polyfill'], function (callback) {
   var config = require('./webpack.config');
   config.plugins.push(new ngAnnotatePlugin({ add: true }));
   config.plugins.push(new webpack.optimize.UglifyJsPlugin({
@@ -60,11 +79,30 @@ gulp.task('build-scripts', function (callback) {
   webpack(config, webpackCallback(callback));
 });
 
-gulp.task('build-assets-dev', ['build-stylesheets', 'build-scripts-dev']);
+gulp.task('copy-config-dev', function () {
+  return gulp.src('./config/development.js').
+    pipe(rename('config.js')).
+    pipe(gulp.dest('./public/assets'));
+});
 
-gulp.task('build-assets', ['build-stylesheets', 'build-scripts']);
+gulp.task('copy-config', function () {
+  return gulp.src('./config/production.js').
+    pipe(rename('config.js')).
+    pipe(gulp.dest('./public/assets'));
+});
+
+gulp.task('build-assets-dev', ['copy-config-dev', 'build-stylesheets-dev', 'build-scripts-dev']);
+
+gulp.task('build-assets', ['copy-config', 'build-stylesheets', 'build-scripts']);
 
 gulp.task('watch', ['build-assets-dev'], function () {
-  gulp.watch('./assets/**/*.less', ['build-stylesheets']);
-  gulp.watch('./assets/**/*.js', ['build-scripts-dev']);
+  gulp.watch('./stylesheets/**/*.less', ['build-stylesheets']);
+  gulp.watch('./scripts/**/*.js', ['build-scripts-dev']);
+});
+
+gulp.task('serve', ['build-assets-dev'], function () {
+  gulp.src('public').
+    pipe(webserver({
+      directoryListing: true
+    }));
 });

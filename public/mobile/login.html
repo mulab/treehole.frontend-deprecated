@@ -1,13 +1,14 @@
 <ons-page>
-  <ons-toolbar>
-    <div class="center">登陆</div>
-  </ons-toolbar>
+  <div class="login">
+    <ons-toolbar>
+      <div class="center">登陆</div>
+    </ons-toolbar>
 
-  <div class="login-form" ng-controller="LoginController">
-    <input type="text" ng-model="username" class="text-input--underbar" placeholder="用户名">
-    <input type="password" ng-model="password" class="text-input--underbar" placeholder="密码">
-    <br><br>
-    <ons-button modifier="large" class="login-button" ng-click="login()" ng-disabled="waitingLogin">确定</ons-button>
+    <div class="login-form" ng-controller="LoginController">
+      <input type="text" ng-model="username" class="text-input--underbar" placeholder="用户名">
+      <input type="password" ng-model="password" class="text-input--underbar" placeholder="密码">
+      <br><br>
+      <ons-button modifier="large" class="login-button" ng-click="login()" ng-disabled="waitingLogin">确定</ons-button>
+    </div>
   </div>
-
 </ons-page>

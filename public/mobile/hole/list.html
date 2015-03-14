@@ -1,0 +1,54 @@
+<ons-page ng-controller="HoleListController">
+  <div class="hole-list">
+ <!--   <ons-sliding-menu side="left" var="menu" swipeable max-slide-distance="75%">
+
+      <div class="menu">
+      </div>
+
+      <div class="main"
+        <ons-page>-->
+
+          <ons-toolbar>
+            <div class="left">
+              <ons-toolbar-button ng-click="menu.toggleMenu()">
+                <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+              </ons-toolbar-button>
+            </div>
+            <div class="center">默认频道</div>
+          </ons-toolbar>
+
+          <div>
+            <ons-list>
+              <ons-list-item ng-repeat="hole in holes" modifier="tappable">
+                <div class="hole-container">
+                  <div class="content">
+                    {{ hole.get('content') }}
+                  </div>
+                  <div class="footer">
+                    <span class="author">{{ hole.get('author').get('nickname') }}</span>
+                    <span class="publish-time">{{ hole.getCreatedAt()|formatTime }}</span>
+                  </div>
+                </div>
+
+              </ons-list-item>
+            </ons-list>
+          </div>
+
+          <ons-bottom-toolbar>
+            <div class="bottom-toolbar">
+              <div class="center">
+                <ons-button modifier="quiet" ng-click="navi.pushPage('hole/new.html', { animation: 'fade' })">
+                  新树洞
+                </ons-button>
+              </div>
+
+            </div>
+
+          </ons-bottom-toolbar>
+
+      <!--  </ons-page>
+      </div>
+
+    </ons-sliding-menu>-->
+  </div>
+</ons-page>

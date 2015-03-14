@@ -4,7 +4,7 @@ var path = require('path');
 
 module.exports = {
   entry: {
-    mobile: path.join(__dirname, 'assets', 'scripts', 'mobile', 'app.js')
+    mobile: path.join(__dirname, 'scripts', 'mobile', 'app.js')
   },
   output: {
     path: path.join(__dirname, 'public', 'assets'),
@@ -13,15 +13,27 @@ module.exports = {
   resolve: {
     root: [
       path.join(__dirname, 'public', 'bower_components'),
-      path.join(__dirname, 'assets', 'scripts', 'mobile')
+      path.join(__dirname, 'scripts', 'mobile')
     ],
     alias: {
-      'uri': 'uri.js/src/URI.js'
+      'uri': 'uri.js/src/URI.js',
+      'moment':'moment/min/moment-with-locales.js',
+      'babel-polyfill': path.join(__dirname, 'node_modules', 'babel-core', 'browser-polyfill.js')
     }
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /bower_components/,
+        loader: 'babel-loader'
+      }
+    ]
   },
   plugins: [
     new webpack.ResolverPlugin([
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
-    ])
+    ]),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ]
 };
