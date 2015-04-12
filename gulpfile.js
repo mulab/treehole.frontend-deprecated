@@ -10,6 +10,7 @@ var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 var webserver = require('gulp-webserver');
+var concat = require('gulp-concat');
 
 function errorHandler(moduleName) {
   return function (err) {
@@ -62,13 +63,13 @@ gulp.task('build-stylesheets', function () {
     .pipe(gulp.dest('./public/assets'));
 });
 
-gulp.task('build-scripts-dev', ['copy-polyfill'], function (callback) {
+gulp.task('build-scripts-dev', function (callback) {
   var config = require('./webpack.config');
   config.devtool = 'source-map';
   webpack(config, webpackCallback(callback));
 });
 
-gulp.task('build-scripts', ['copy-polyfill'], function (callback) {
+gulp.task('build-scripts', function (callback) {
   var config = require('./webpack.config');
   config.plugins.push(new ngAnnotatePlugin({ add: true }));
   config.plugins.push(new webpack.optimize.UglifyJsPlugin({
@@ -91,18 +92,48 @@ gulp.task('copy-config', function () {
     pipe(gulp.dest('./public/assets'));
 });
 
-gulp.task('build-assets-dev', ['copy-config-dev', 'build-stylesheets-dev', 'build-scripts-dev']);
+gulp.task('copy-mobile-libraries-dev', function () {
+  return gulp.src([
+    './bower_components/angular/angular.js',
+    './bower_components/onsenui/build/js/onsenui.js',
+    './bower_components/leancloud-javascript-sdk/dist/av.js'
+  ]).pipe(concat('mobile.vender.js')).
+    pipe(gulp.dest('./public/assets'));
+});
 
-gulp.task('build-assets', ['copy-config', 'build-stylesheets', 'build-scripts']);
+gulp.task('copy-mobile-libraries', function () {
+  return gulp.src([
+    './bower_components/angular/angular.min.js',
+    './bower_components/onsenui/build/js/onsenui.min.js',
+    './bower_components/leancloud-javascript-sdk/dist/av-mini.js'
+  ]).pipe(concat('mobile.vender.js')).
+    pipe(gulp.dest('./public/assets'));
+});
+
+gulp.task('build-assets-dev', [
+  'copy-polyfill',
+  'copy-config-dev',
+  'copy-mobile-libraries-dev',
+  'build-stylesheets-dev',
+  'build-scripts-dev'
+]);
+
+gulp.task('build-assets', [
+  'copy-polyfill',
+  'copy-config',
+  'copy-mobile-libraries',
+  'build-stylesheets',
+  'build-scripts'
+]);
 
 gulp.task('watch', ['build-assets-dev'], function () {
   gulp.watch('./stylesheets/**/*.less', ['build-stylesheets']);
   gulp.watch('./scripts/**/*.js', ['build-scripts-dev']);
 });
 
-gulp.task('serve', ['build-assets-dev'], function () {
+gulp.task('serve', function () {
   gulp.src('public').
     pipe(webserver({
-      directoryListing: true
+      host: '0.0.0.0'
     }));
 });

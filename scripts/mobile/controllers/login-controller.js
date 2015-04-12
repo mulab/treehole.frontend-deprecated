@@ -1,7 +1,5 @@
 'use strict';
 
-var statusCode = require('../util/status-code');
-
 module.exports = function ($scope, $http) {
   $scope.waitingLogin = false;
   $scope.login = function () {
@@ -13,11 +11,14 @@ module.exports = function ($scope, $http) {
         ons.notification.alert({
           message: err.message,
           animation: 'none',
-          buttonLabel: '确定'
+          buttonLabel: '确定',
+          callback: function () {
+            $scope.$apply(function () {
+              $scope.waitingLogin = false;
+              $scope.password = '';
+            });
+          }
         });
-        $scope.waitingLogin = false;
-        $scope.password = '';
-        $scope.$apply();
       });
   };
 };

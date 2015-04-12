@@ -1,0 +1,19 @@
+<ons-page>
+  <ons-dialog cancelable>
+    <div class="comment-dialog" ng-controller="NewCommentController">
+      <ons-toolbar inline>
+        <div class="center">发表评论</div>
+      </ons-toolbar>
+
+      <div class="main">
+        <textarea class="textarea" ng-model="commentContent"></textarea>
+        <div class="buttons">
+          <div class="submit-button">
+            <ons-button modifier="large--cta" class="submit-button"
+                        ng-click="submitComment()" ng-disabled="waitingSubmit">确定</ons-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ons-dialog>
+</ons-page>

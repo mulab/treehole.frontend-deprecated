@@ -1,0 +1,42 @@
+<ons-page ng-device-backbutton="navi.popPage()" ng-controller="ShowHoleController">
+  <div class="show-hole">
+    <ons-toolbar>
+      <div class="left"><ons-back-button>返回</ons-back-button></div>
+      <div class="center">树洞</div>
+    </ons-toolbar>
+
+    <div>
+      <div class="images">
+        <ons-carousel class="carousel" auto-refresh swipeable overscrollable auto-scroll>
+          <ons-carousel-item ng-repeat="image in hole.get('images')">
+            <div class="item">
+              <img ng-src="{{ image.get('file').thumbnailURL(360, 300) }}">
+            </div>
+          </ons-carousel-item>
+        </ons-carousel>
+      </div>
+
+      <div class="main">
+        <div class="content">{{ hole.get('content') }}</div>
+      </div>
+
+      <div class="comments">
+        <ons-list>
+          <ons-list-item ng-repeat="comment in comments">
+            <div class="comment">
+              <div class="content">{{ comment.get('content') }}</div>
+            </div>
+          </ons-list-item>
+        </ons-list>
+      </div>
+    </div>
+
+    <ons-bottom-toolbar>
+      <div class="bottom-toolbar">
+        <div class="center">
+          <ons-button modifier="quiet" ng-click="showCommentDialog()">评论</ons-button>
+        </div>
+      </div>
+    </ons-bottom-toolbar>
+  </div>
+</ons-page>

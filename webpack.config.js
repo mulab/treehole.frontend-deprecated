@@ -13,7 +13,7 @@ module.exports = {
   resolve: {
     root: [
       path.join(__dirname, 'public', 'bower_components'),
-      path.join(__dirname, 'scripts', 'mobile')
+      path.join(__dirname, 'scripts')
     ],
     alias: {
       'uri': 'uri.js/src/URI.js',

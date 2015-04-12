@@ -1,16 +1,15 @@
 'use strict';
 
-var Hole = require('models/hole');
-
 module.exports = function ($scope) {
   $scope.waitingSubmit = false;
-  $scope.images = [];
-  $scope.submit = function () {
+  $scope.submitComment = function () {
     $scope.waitingSubmit = true;
-    Hole.createNewHole($scope.content, null, $scope.images).
+    $scope.hole.createComment($scope.commentContent).
       then(function () {
-        navi.resetToPage('hole/list.html', { animation: 'fade' });
+        $scope.commentDialog.destroy();
+        $scope.refreshComments();
       }, function (err) {
+        $scope.commentDialog.destroy();
         ons.notification.alert({
           message: err.message,
           animation: 'none',

@@ -19,8 +19,12 @@
 
           <div>
             <ons-list>
-              <ons-list-item ng-repeat="hole in holes" modifier="tappable">
+              <ons-list-item ng-repeat="hole in holes" modifier="tappable"
+                             ng-click="navi.pushPage('hole/show.html', { animation: 'fade', hole: hole })">
                 <div class="hole-container">
+                  <div ng-if="hole.get('images').length > 0" class="image">
+                    <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(100, 100) }}">
+                  </div>
                   <div class="content">
                     {{ hole.get('content') }}
                   </div>
