@@ -94,19 +94,19 @@ gulp.task('copy-config', function () {
 
 gulp.task('copy-mobile-libraries-dev', function () {
   return gulp.src([
-    './bower_components/angular/angular.js',
-    './bower_components/onsenui/build/js/onsenui.js',
-    './bower_components/leancloud-javascript-sdk/dist/av.js'
-  ]).pipe(concat('mobile.vender.js')).
+    './public/bower_components/angular/angular.js',
+    './public/bower_components/onsenui/build/js/onsenui.js',
+    './public/bower_components/leancloud-javascript-sdk/dist/av.js'
+  ]).pipe(concat('mobile.vendor.js')).
     pipe(gulp.dest('./public/assets'));
 });
 
 gulp.task('copy-mobile-libraries', function () {
   return gulp.src([
-    './bower_components/angular/angular.min.js',
-    './bower_components/onsenui/build/js/onsenui.min.js',
-    './bower_components/leancloud-javascript-sdk/dist/av-mini.js'
-  ]).pipe(concat('mobile.vender.js')).
+    './public/bower_components/angular/angular.min.js',
+    './public/bower_components/onsenui/build/js/onsenui.min.js',
+    './public/bower_components/leancloud-javascript-sdk/dist/av-mini.js'
+  ]).pipe(concat('mobile.vendor.js')).
     pipe(gulp.dest('./public/assets'));
 });
 
