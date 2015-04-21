@@ -1,6 +1,7 @@
 'use strict';
 
-AV.initialize(CONFIG['APP_ID'], CONFIG['APP_KEY']);
+AV.initialize(CONFIG.appId, CONFIG.appKey);
+AV.setProduction(CONFIG.isProduction);
 
 var app = ons.bootstrap('treehole', ['onsen']);
 
