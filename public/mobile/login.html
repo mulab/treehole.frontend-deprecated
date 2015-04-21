@@ -1,6 +1,6 @@
 <ons-page>
   <div class="login">
-    <ons-toolbar>
+    <ons-toolbar fixed-style>
       <div class="center">登陆</div>
     </ons-toolbar>
 
@@ -9,6 +9,10 @@
       <input type="password" ng-model="password" class="text-input--underbar" placeholder="密码">
       <br><br>
       <ons-button modifier="large" class="login-button" ng-click="login()" ng-disabled="waitingLogin">确定</ons-button>
+      <div class="register-button">
+        <span style="margin-right: 2px">或者</span>
+        <a style="color: rgba(24,103,194,0.81)" ng-click="navi.pushPage('register.html', { animation: 'fade' })">注册新账号</a>
+      </div>
     </div>
   </div>
 </ons-page>
