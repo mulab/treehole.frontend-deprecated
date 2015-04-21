@@ -19,11 +19,20 @@ module.exports = function ($compile) {
             imageBox.find('img').prop('src', reader.result);
             $compile(imageBox)(scope);
             container[0].insertBefore(imageBox[0], addButton[0]);
-            var removeImage = function () {
-              imageBox.remove();
-              _.pull(scope.images, file);
-            };
-            imageBox.find('div').on('dragleft', removeImage);
+
+            imageBox.find('div').on('hold', function () {
+              ons.notification.confirm({
+                title: '确认',
+                message: '是否删除这张图片？',
+                buttonLabels: ['确认', '取消'],
+                callback: function (answer) {
+                  if (answer === 0) {
+                    imageBox.remove();
+                    _.pull(scope.images, file);
+                  }
+                }
+              });
+            });
           };
           reader.readAsDataURL(file);
         }
