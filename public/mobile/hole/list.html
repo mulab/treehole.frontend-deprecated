@@ -1,13 +1,9 @@
 <ons-page ng-controller="HoleListController">
-  <div class="hole-list">
- <!--   <ons-sliding-menu side="left" var="menu" swipeable max-slide-distance="75%">
+  <ons-sliding-menu var="menu" menu-page="left-menu.html" swipeable max-slide-distance="260px" type="push">
 
-      <div class="menu">
-      </div>
-
-      <div class="main"
-        <ons-page>-->
-
+    <div class="main">
+      <ons-page>
+        <div class="hole-list">
           <ons-toolbar fixed-style>
             <div class="left">
               <ons-toolbar-button ng-click="menu.toggleMenu()">
@@ -50,9 +46,9 @@
 
           </ons-bottom-toolbar>
 
-      <!--  </ons-page>
-      </div>
+        </div>
+      </ons-page>
+    </div>
 
-    </ons-sliding-menu>-->
-  </div>
+  </ons-sliding-menu>
 </ons-page>

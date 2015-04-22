@@ -1,0 +1,39 @@
+<ons-page class="left-menu" ng-controller="LeftMenuController">
+
+    <ons-toolbar modifier="transparent">
+      <div class="right">
+        <ons-toolbar-button class="menu-close" ng-click="menu.close()">
+          </ons-icon>关闭
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+
+    <ons-list class="menu-list">
+      <ons-list-item class="menu-item" ng-click="menu.close()">
+        <ons-icon icon="fa-caret-right"></ons-icon>
+        默认频道
+      </ons-list-item>
+
+      <ons-list-item class="menu-item" ng-click="menu.close()">
+        <ons-icon icon="fa-caret-right"></ons-icon>
+        频道1
+      </ons-list-item>
+
+      <ons-list-item class="menu-item" ng-click="menu.close()">
+        <ons-icon icon="fa-caret-right"></ons-icon>
+        频道2
+      </ons-list-item>
+    </ons-list>
+
+    <br>
+
+    <ons-list class="bottom-menu-list">
+      <ons-list-item class="bottom-menu-item" ng-click="logout()">
+        登出
+      </ons-list-item>
+      <ons-list-item class="bottom-menu-item">
+        FAQ
+      </ons-list-item>
+    </ons-list>
+
+</ons-page>
