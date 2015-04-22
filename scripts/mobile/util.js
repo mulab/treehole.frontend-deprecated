@@ -15,14 +15,6 @@ exports.showErrorAlert = function (message, callback) {
   ons.notification.alert(options);
 };
 
-exports.navigatorClear = function () {
-  var count = navi.getPages().length - 1;
-  var i;
-  for (i = 0; i < count; i ++) {
-    navi.popPage();
-  }
-};
-
 var TABLE = {
   'Username has already been taken': '用户名已被占用！',
   'Could not find user': '用户名或密码错误！',

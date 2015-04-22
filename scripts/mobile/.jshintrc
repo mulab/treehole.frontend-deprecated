@@ -16,7 +16,7 @@
   "globals": {
     "window": true,
     "document": true,
-    "history": true,
+    "History": true,
     "angular": true,
     "ons": true,
     "navi": true,

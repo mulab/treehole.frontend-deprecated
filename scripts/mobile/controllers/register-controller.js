@@ -48,8 +48,8 @@ module.exports = function ($scope) {
 
     AV.User.signUp(username, password, { nickname: nickname }).
       then(function () {
-        Util.navigatorClear();
-        navi.pushPage('hole/list.html', { animation: 'fade' });
+        navi.clearAllPages();
+        navi.pushPageWithHistory('hole/list.html', { animation: 'fade' });
       }, function (err) {
         Util.showErrorAlert(Util.translate(err.message), onProcessingEnd);
       });

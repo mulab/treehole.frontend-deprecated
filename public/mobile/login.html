@@ -11,7 +11,8 @@
       <ons-button modifier="large" class="login-button" ng-click="login()" ng-disabled="waitingLogin">确定</ons-button>
       <div class="register-button">
         <span style="margin-right: 2px">或者</span>
-        <a style="color: rgba(24,103,194,0.81)" ng-click="navi.pushPage('register.html', { animation: 'fade' })">注册新账号</a>
+        <a style="color: rgba(24,103,194,0.81)"
+           ng-click="navi.pushPageWithHistory('register.html', { animation: 'fade' })">注册新账号</a>
       </div>
     </div>
   </div>

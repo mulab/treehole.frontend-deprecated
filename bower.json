@@ -9,6 +9,7 @@
     "leancloud-javascript-sdk": "latest",
     "bluebird": "~2.9.24",
     "onsenui": "~1.3.0",
-    "isMobile": "~0.3.6"
+    "isMobile": "~0.3.6",
+    "history": "~1.8.0"
   }
 }

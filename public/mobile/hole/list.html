@@ -16,7 +16,7 @@
           <div>
             <ons-list>
               <ons-list-item ng-repeat="hole in holes" modifier="tappable"
-                             ng-click="navi.pushPage('hole/show.html', { animation: 'fade', hole: hole })">
+                             ng-click="navi.pushPageWithHistory('hole/show.html', { animation: 'fade', hole: hole })">
                 <div class="hole-container">
                   <div ng-if="hole.get('images').length > 0" class="image">
                     <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(100, 100) }}">
@@ -37,7 +37,8 @@
           <ons-bottom-toolbar>
             <div class="bottom-toolbar">
               <div class="center">
-                <ons-button modifier="quiet" ng-click="navi.pushPage('hole/new.html', { animation: 'fade' })">
+                <ons-button modifier="quiet"
+                            ng-click="navi.pushPageWithHistory('hole/new.html', { animation: 'fade' })">
                   新树洞
                 </ons-button>
               </div>

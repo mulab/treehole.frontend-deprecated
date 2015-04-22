@@ -27,7 +27,8 @@ module.exports = function ($scope) {
 
     Hole.createNewHole($scope.content, null, $scope.images).
       then(function () {
-        navi.resetToPage('hole/list.html', { animation: 'fade' });
+        navi.clearAllPages();
+        navi.pushPageWithHistory('hole/list.html', { animation: 'fade' });
       }, function (err) {
         Util.showErrorAlert(Util.translate(err.message), onProcessingEnd);
       });

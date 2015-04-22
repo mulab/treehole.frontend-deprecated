@@ -1,7 +1,11 @@
-<ons-page ng-device-backbutton="navi.popPage()" ng-controller="NewHoleController">
+<ons-page ng-controller="NewHoleController">
   <div class="new-hole">
     <ons-toolbar fixed-style>
-      <div class="left"><ons-back-button>返回</ons-back-button></div>
+      <div class="left">
+        <ons-toolbar-button ng-click="navi.popPageWithHistory({ 'animation': 'slide' })">
+          <ons-icon style="margin-left: 5px;" icon="ion-ios-arrow-back" size="32px"></ons-icon>
+        </ons-toolbar-button>
+      </div>
       <div class="center">新树洞</div>
     </ons-toolbar>
 
