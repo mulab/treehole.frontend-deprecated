@@ -34,8 +34,18 @@ function webpackCallback(callback) {
 }
 
 gulp.task('copy-polyfill', function () {
-  return gulp.src('./node_modules/babel-core/browser-polyfill.js').
-    pipe(gulp.dest('./public/assets'));
+  return gulp.src('./node_modules/babel-core/browser-polyfill.js')
+    .pipe(gulp.dest('./public/assets'));
+});
+
+gulp.task('copy-ismobile', function () {
+  return gulp.src(['./bower_components/isMobile/isMobile.min.js'])
+    .pipe(gulp.dest('./public/assets'));
+});
+
+gulp.task('copy-onsenui-css', function () {
+  return gulp.src(['./bower_components/onsenui/build/css/**/*'])
+    .pipe(gulp.dest('./public/assets/onsenui-css'));
 });
 
 gulp.task('build-stylesheets-dev', function () {
@@ -81,37 +91,39 @@ gulp.task('build-scripts', function (callback) {
 });
 
 gulp.task('copy-config-dev', function () {
-  return gulp.src('./config/development.js').
-    pipe(rename('config.js')).
-    pipe(gulp.dest('./public/assets'));
+  return gulp.src('./config/development.js')
+    .pipe(rename('config.js'))
+    .pipe(gulp.dest('./public/assets'));
 });
 
 gulp.task('copy-config', function () {
-  return gulp.src('./config/production.js').
-    pipe(rename('config.js')).
-    pipe(gulp.dest('./public/assets'));
+  return gulp.src('./config/production.js')
+    .pipe(rename('config.js'))
+    .pipe(gulp.dest('./public/assets'));
 });
 
 gulp.task('copy-mobile-libraries-dev', function () {
   return gulp.src([
-    './public/bower_components/angular/angular.js',
-    './public/bower_components/onsenui/build/js/onsenui.js',
-    './public/bower_components/leancloud-javascript-sdk/dist/av.js'
-  ]).pipe(concat('mobile.vendor.js')).
-    pipe(gulp.dest('./public/assets'));
+    './bower_components/angular/angular.js',
+    './bower_components/onsenui/build/js/onsenui.js',
+    './bower_components/leancloud-javascript-sdk/dist/av.js'
+  ]).pipe(concat('mobile.vendor.js'))
+    .pipe(gulp.dest('./public/assets'));
 });
 
 gulp.task('copy-mobile-libraries', function () {
   return gulp.src([
-    './public/bower_components/angular/angular.min.js',
-    './public/bower_components/onsenui/build/js/onsenui.min.js',
-    './public/bower_components/leancloud-javascript-sdk/dist/av-mini.js'
-  ]).pipe(concat('mobile.vendor.js')).
-    pipe(gulp.dest('./public/assets'));
+    './bower_components/angular/angular.min.js',
+    './bower_components/onsenui/build/js/onsenui.min.js',
+    './bower_components/leancloud-javascript-sdk/dist/av-mini.js'
+  ]).pipe(concat('mobile.vendor.js'))
+    .pipe(gulp.dest('./public/assets'));
 });
 
 gulp.task('build-assets-dev', [
   'copy-polyfill',
+  'copy-ismobile',
+  'copy-onsenui-css',
   'copy-config-dev',
   'copy-mobile-libraries-dev',
   'build-stylesheets-dev',
@@ -120,6 +132,8 @@ gulp.task('build-assets-dev', [
 
 gulp.task('build-assets', [
   'copy-polyfill',
+  'copy-ismobile',
+  'copy-onsenui-css',
   'copy-config',
   'copy-mobile-libraries',
   'build-stylesheets',
