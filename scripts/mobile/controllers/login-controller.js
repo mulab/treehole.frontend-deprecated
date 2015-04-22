@@ -7,7 +7,7 @@ module.exports = function ($scope) {
   $scope.waitingLogin = false;
 
   function onProcessingEnd() {
-    $scope.apply(function () {
+    $scope.$apply(function () {
       $scope.waitingLogin = false;
       $scope.password = '';
     });
