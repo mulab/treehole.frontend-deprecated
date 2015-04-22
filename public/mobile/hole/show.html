@@ -6,7 +6,7 @@
     </ons-toolbar>
 
     <div>
-      <div class="images">
+      <div class="images" ng-if="hole.get('images') && hole.get('images').length > 0">
         <ons-carousel class="carousel" auto-refresh swipeable overscrollable auto-scroll>
           <ons-carousel-item ng-repeat="image in hole.get('images')">
             <div class="item">
