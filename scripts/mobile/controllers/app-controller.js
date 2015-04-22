@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function ($scope) {
+module.exports = function () {
   ons.ready(function () {
     if (AV.User.current()) {
-      navi.resetToPage('hole/list.html', { animation: 'fade' });
+      navi.pushPage('hole/list.html', { animation: 'fade' });
     } else {
-      navi.resetToPage('login.html', {animation: 'none'});
+      navi.pushPage('login.html', { animation: 'fade' });
     }
   });
 };

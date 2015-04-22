@@ -4,6 +4,14 @@ var Util = require('../util');
 var _ = require('lodash');
 
 module.exports = function ($scope) {
+  function onProcessingEnd() {
+    $scope.$apply(function () {
+      $scope.waitingLogin = false;
+      $scope.password = '';
+      $scope.passwordConfirm = '';
+    });
+  }
+
   $scope.register = function () {
     var username = $scope.username;
     var password = $scope.password;
@@ -34,24 +42,16 @@ module.exports = function ($scope) {
     if (password !== $scope.passwordConfirm) {
       errorMessages.push('两次输入的密码不一样！');
     }
-
     if (!_.isEmpty(errorMessages)) {
-      return Util.showErrorAlert(errorMessages[0], function () {
-        $scope.$apply(function () {
-          $scope.waitingLogin = false;
-        });
-      });
+      return Util.showErrorAlert(errorMessages[0], onProcessingEnd);
     }
 
     AV.User.signUp(username, password, { nickname: nickname }).
       then(function () {
-        navi.resetToPage('hole/list.html', { animation: 'fade' });
+        Util.navigatorClear();
+        navi.pushPage('hole/list.html', { animation: 'fade' });
       }, function (err) {
-        Util.showErrorAlert(Util.translate(err.message), function () {
-          $scope.$apply(function () {
-            $scope.waitingLogin = false;
-          });
-        });
+        Util.showErrorAlert(Util.translate(err.message), onProcessingEnd);
       });
   };
 };

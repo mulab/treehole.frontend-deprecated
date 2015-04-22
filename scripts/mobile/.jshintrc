@@ -14,6 +14,9 @@
   "debug": true,
   "strict": true,
   "globals": {
+    "window": true,
+    "document": true,
+    "history": true,
     "angular": true,
     "ons": true,
     "navi": true,

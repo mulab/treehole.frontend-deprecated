@@ -6,9 +6,10 @@ var _ = require('lodash');
 module.exports = function ($scope) {
   $scope.waitingLogin = false;
 
-  function resetButton() {
+  function onProcessingEnd() {
     $scope.apply(function () {
       $scope.waitingLogin = false;
+      $scope.password = '';
     });
   }
 
@@ -23,25 +24,16 @@ module.exports = function ($scope) {
     if (_.isEmpty(password)) {
       errorMessages.push('密码不能为空！');
     }
-
     if (!_.isEmpty(errorMessages)) {
-      return Util.showErrorAlert(errorMessages[0], function () {
-        $scope.$apply(function () {
-          $scope.waitingLogin = false;
-        });
-      });
+      return Util.showErrorAlert(errorMessages[0], onProcessingEnd);
     }
 
     AV.User.logIn(username, password).
       then(function () {
-        navi.resetToPage('hole/list.html', { animation: 'fade' });
+        Util.navigatorClear();
+        navi.pushPage('hole/list.html', { animation: 'fade' });
       }, function (err) {
-        Util.showErrorAlert(Util.translate(err.message), function () {
-          $scope.$apply(function () {
-            $scope.waitingLogin = false;
-            $scope.password = '';
-          });
-        });
+        Util.showErrorAlert(Util.translate(err.message), onProcessingEnd);
       });
   };
 };
