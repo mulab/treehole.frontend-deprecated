@@ -144,7 +144,10 @@ gulp.task('build-assets', [
 
 gulp.task('watch', ['build-assets-dev'], function () {
   gulp.watch('./stylesheets/**/*.less', ['build-stylesheets']);
-  gulp.watch('./scripts/**/*.js', ['build-scripts-dev']);
+  var config = require('./webpack.config');
+  config.devtool = 'source-map';
+  config.watch = true;
+  webpack(config, webpackCallback());
 });
 
 gulp.task('serve', function () {
