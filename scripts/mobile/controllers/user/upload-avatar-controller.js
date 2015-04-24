@@ -24,6 +24,7 @@ module.exports = function ($scope) {
         $scope.waitingSubmit = false;
         $scope.nextStep();
       } else {
+        $scope.$apply();
         navi.popPageWithHistory();
       }
     }, function (err) {

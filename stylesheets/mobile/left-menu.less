@@ -22,7 +22,7 @@
     padding: 0 0 0 20px;
     line-height: 52px;
     height: 52px;
-    text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 0px;
+    text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
   }
 
   .menu-item:active {
@@ -50,5 +50,32 @@
 
   .bottom-menu-item:active {
     background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .user {
+    margin: 20px 5px 5px 12px;
+    .avatar {
+      float: left;
+      img {
+        border-radius: 32px;
+        height: 64px;
+        width: 64px;
+        //border: 2px solid #ccc;
+      }
+    }
+    .name {
+      float: left;
+      height: 64px;
+      margin: 1px 0 0 14px;
+      .nickname {
+        font-size: 23px;
+        color: #fff;
+      }
+      .information {
+        font-size: 13px;
+        margin-top: 5px;
+        color: #ccc;
+      }
+    }
   }
 }
