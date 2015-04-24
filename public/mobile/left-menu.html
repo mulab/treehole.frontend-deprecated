@@ -1,13 +1,4 @@
 <ons-page class="left-menu" ng-controller="LeftMenuController">
-
-    <!--<ons-toolbar modifier="transparent">
-      <div class="right">
-        <ons-toolbar-button class="menu-close" ng-click="menu.close()">
-          </ons-icon>关闭
-        </ons-toolbar-button>
-      </div>
-    </ons-toolbar>-->
-
   <div class="user clearfix">
     <div class="avatar" ng-click="changeAvatar()">
       <img ng-src="{{ user.get('avatar') ? user.get('avatar').thumbnailURL(64, 64) : '/default-avatar.png' }}">

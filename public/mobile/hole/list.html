@@ -7,10 +7,15 @@
           <ons-toolbar fixed-style>
             <div class="left">
               <ons-toolbar-button ng-click="menu.toggleMenu()">
-                <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+                <ons-icon icon="ion-navicon" size="32px"></ons-icon>
               </ons-toolbar-button>
             </div>
             <div class="center">默认频道</div>
+            <div class="right">
+              <ons-toolbar-button ng-click="navi.pushPageWithHistory('hole/new.html', { animation: 'fade' })">
+                <ons-icon icon="ion-android-add" size="32px"></ons-icon>
+              </ons-toolbar-button>
+            </div>
           </ons-toolbar>
 
           <div>
@@ -34,7 +39,7 @@
             </ons-list>
           </div>
 
-          <ons-bottom-toolbar>
+          <!--<ons-bottom-toolbar>
             <div class="bottom-toolbar">
               <div class="center">
                 <ons-button modifier="quiet"
@@ -45,7 +50,7 @@
 
             </div>
 
-          </ons-bottom-toolbar>
+          </ons-bottom-toolbar>-->
 
         </div>
       </ons-page>
