@@ -1,9 +1,11 @@
 'use strict';
 
-var Util = require('../util');
+var Util = require('../../util');
 var _ = require('lodash');
 
 module.exports = function ($scope) {
+  $scope.waitingSubmit = false;
+
   function onProcessingEnd() {
     $scope.$apply(function () {
       $scope.waitingSubmit = false;
@@ -49,7 +51,7 @@ module.exports = function ($scope) {
     AV.User.signUp(username, password, { nickname: nickname }).
       then(function () {
         navi.clearAllPages();
-        navi.pushPageWithHistory('hole/list.html', { animation: 'fade' });
+        navi.pushPageWithHistory('user/upload-avatar.html', { animation: 'fade', afterRegister: true });
       }, function (err) {
         Util.showErrorAlert(Util.translate(err.message), onProcessingEnd);
       });

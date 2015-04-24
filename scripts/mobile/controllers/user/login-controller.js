@@ -1,6 +1,6 @@
 'use strict';
 
-var Util = require('../util');
+var Util = require('../../util');
 var _ = require('lodash');
 
 module.exports = function ($scope) {
@@ -30,8 +30,7 @@ module.exports = function ($scope) {
 
     AV.User.logIn(username, password).
       then(function () {
-        navi.clearAllPages();
-        navi.pushPageWithHistory('hole/list.html', { animation: 'fade' });
+        navi.redirectToIndex();
       }, function (err) {
         Util.showErrorAlert(Util.translate(err.message), onProcessingEnd);
       });

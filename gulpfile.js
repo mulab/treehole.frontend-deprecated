@@ -54,6 +54,7 @@ gulp.task('build-stylesheets-dev', function () {
     .pipe(plumber({ errorHandler: errorHandler('Less') }))
     .pipe(less({
       paths: [
+        path.join(__dirname, 'bower_components'),
         path.join(__dirname, 'stylesheets', 'mobile')
       ]
     }))
@@ -66,6 +67,7 @@ gulp.task('build-stylesheets', function () {
     .pipe(plumber({ errorHandler: errorHandler('Less') }))
     .pipe(less({
       paths: [
+        path.join(__dirname, 'bower_components'),
         path.join(__dirname, 'stylesheets', 'mobile')
       ]
     }))
@@ -107,7 +109,8 @@ gulp.task('copy-mobile-libraries-dev', function () {
     './bower_components/angular/angular.js',
     './bower_components/onsenui/build/js/onsenui.js',
     './bower_components/leancloud-javascript-sdk/dist/av.js',
-    './bower_components/history/scripts/bundled-uncompressed/html5/native.history.js'
+    './bower_components/history/scripts/bundled-uncompressed/html5/native.history.js',
+    './bower_components/ng-img-crop/compile/unminified/ng-img-crop.js'
   ]).pipe(concat('mobile.vendor.js'))
     .pipe(gulp.dest('./public/assets'));
 });
@@ -117,7 +120,8 @@ gulp.task('copy-mobile-libraries', function () {
     './bower_components/angular/angular.min.js',
     './bower_components/onsenui/build/js/onsenui.min.js',
     './bower_components/leancloud-javascript-sdk/dist/av-mini.js',
-    './bower_components/history/scripts/bundled/html5/native.history.js'
+    './bower_components/history/scripts/bundled/html5/native.history.js',
+    './bower_components/ng-img-crop/compile/minified/ng-img-crop.js'
   ]).pipe(concat('mobile.vendor.js'))
     .pipe(gulp.dest('./public/assets'));
 });

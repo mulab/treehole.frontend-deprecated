@@ -1,0 +1,41 @@
+.upload-avatar {
+  .avatar-editor {
+    .crop-area-container {
+      margin: 20px 0;
+      .crop-area {
+        height: 280px;
+        width: 280px;
+        margin: auto;
+        background-color: #eee;
+        border-radius: 10px;
+      }
+    }
+    .buttons {
+      text-align: center;
+      .button {
+        width: 120px;
+        margin: 7px;
+      }
+      .upload-button {
+        position: relative;
+        display: inline-block;
+        .avatar-input {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 120px;
+          height: 42px;
+          margin: 7px;
+          opacity: 0.0;
+          filter: alpha(opacity=0);
+          z-index: 999;
+        }
+      }
+    }
+  }
+  .skip {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 15px;
+  }
+}

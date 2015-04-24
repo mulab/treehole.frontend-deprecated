@@ -1,5 +1,7 @@
 'use strict';
 
+var Util = require('../util');
+
 module.exports = function () {
   ons.ready(function () {
     var pageId = 1;
@@ -16,6 +18,9 @@ module.exports = function () {
       if (!times) {
         times = 1;
       }
+      if (times <= 0) {
+        return;
+      }
       History.popOptions.push({ options: options, times: times });
       History.go(-times);
     };
@@ -23,6 +28,21 @@ module.exports = function () {
     navi.clearAllPages = function () {
       var count = navi.getPages().length - 1;
       navi.popPageWithHistory({ animation: 'none' }, count);
+    };
+
+    navi.redirectToIndex = function (options) {
+      if (!options) {
+        options = {};
+      }
+      if (!options.animation) {
+        options.animation = 'fade';
+      }
+      navi.clearAllPages();
+      if (AV.User.current()) {
+        navi.pushPageWithHistory('hole/list.html', options);
+      } else {
+        navi.pushPageWithHistory('user/login.html', options);
+      }
     };
 
     History.replaceState({ pageId: 0 }, null, '?');
@@ -48,10 +68,15 @@ module.exports = function () {
       var options;
       var times;
       if (index === -1) {
-        pageUrl = History.pageDict[historyPageId].pageUrl;
-        options = History.pageDict[historyPageId].options;
-        options.pageId = historyPageId;
-        navi.pushPage(pageUrl, options);
+        if (History.pageDict[historyPageId]) {
+          pageUrl = History.pageDict[historyPageId].pageUrl;
+          options = History.pageDict[historyPageId].options;
+          delete History.pageDict[historyPageId];
+          options.pageId = historyPageId;
+          navi.pushPage(pageUrl, options);
+        } else {
+          History.back();
+        }
       } else {
         if (History.popOptions.length > 0) {
           options = History.popOptions[0].options;
@@ -66,14 +91,13 @@ module.exports = function () {
           for (i = index + 1; i < pages.length; i ++) {
             navi.popPage({ 'animation': 'slide' });
           }
+          if (index === 0) {
+            window.location.href = '/mobile';
+          }
         }
       }
     });
 
-    if (AV.User.current()) {
-      navi.pushPageWithHistory('hole/list.html', { animation: 'none' });
-    } else {
-      navi.pushPageWithHistory('login.html', { animation: 'none' });
-    }
+    navi.redirectToIndex({ animation: 'none' });
   });
 };

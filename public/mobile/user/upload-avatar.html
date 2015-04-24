@@ -1,0 +1,42 @@
+<ons-page>
+  <div class="upload-avatar" ng-controller="UploadAvatarController">
+    <ons-toolbar fixed-style>
+      <div class="left">
+        <div ng-if="!afterRegister">
+          <ons-toolbar-button ng-click="navi.popPageWithHistory({ 'animation': 'slide' })">
+            <ons-icon style="margin-left: 5px;" icon="ion-ios-arrow-back" size="32px"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </div>
+      <div class="center">上传头像</div>
+    </ons-toolbar>
+
+    <div class="avatar-editor" avatar-editor>
+      <div class="crop-area-container">
+        <div class="crop-area">
+          <img-crop image="avatar" result-image="croppedAvatar" result-image-format="image/png"
+                    on-load-done="waitingLoading = false"></img-crop>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <div class="upload-button">
+          <input class="avatar-input" type="file" accept="image/*">
+          <ons-button modifier="outline" class="select-button" ng-disabled="waitingLoading || waitingSubmit">
+            <span ng-if="!waitingLoading">选择图片</span>
+            <span ng-if="waitingLoading">加载中</span>
+          </ons-button>
+        </div>
+        <ons-button modifier="outline" ng-click="upload()" ng-disabled="waitingLoading || waitingSubmit">
+          <span ng-if="!waitingSubmit">确定上传</span>
+          <span ng-if="waitingSubmit">上传中</span>
+        </ons-button>
+      </div>
+    </div>
+
+    <div class="skip" ng-if="afterRegister">
+      <span style="margin-right: 2px">或者</span>
+      <a style="color: rgba(24,103,194,0.81)" ng-click="nextStep()">跳过该步骤</a>
+    </div>
+  </div>
+</ons-page>
