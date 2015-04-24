@@ -1,6 +1,6 @@
 'use strict';
 
-var Util = require('../../util');
+var helper = require('../../helper');
 var _ = require('lodash');
 
 module.exports = function ($scope) {
@@ -22,7 +22,7 @@ module.exports = function ($scope) {
 
     if (!_.isEmpty(errorMessages)) {
       $scope.commentDialog.destroy();
-      return Util.showErrorAlert(errorMessages[0], onProcessingEnd);
+      return helper.showErrorAlert(errorMessages[0], onProcessingEnd);
     }
 
     $scope.hole.createComment($scope.commentContent).
@@ -31,7 +31,7 @@ module.exports = function ($scope) {
         $scope.refreshComments();
       }, function (err) {
         $scope.commentDialog.destroy();
-        Util.showErrorAlert(Util.translate(err.message), onProcessingEnd);
+        helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
       });
   };
 };

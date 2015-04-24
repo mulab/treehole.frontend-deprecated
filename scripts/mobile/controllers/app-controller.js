@@ -1,7 +1,5 @@
 'use strict';
 
-var Util = require('../util');
-
 module.exports = function () {
   ons.ready(function () {
     var pageId = 1;

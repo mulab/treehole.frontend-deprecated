@@ -1,6 +1,6 @@
 'use strict';
 
-var Util = require('../../util');
+var helper = require('../../helper');
 
 module.exports = function ($scope) {
   $scope.waitingLoading = false;
@@ -27,7 +27,7 @@ module.exports = function ($scope) {
         navi.popPageWithHistory();
       }
     }, function (err) {
-      Util.showErrorAlert(Util.translate(err.message), onProcessingEnd);
+      helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
     });
   };
 

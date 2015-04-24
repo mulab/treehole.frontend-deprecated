@@ -1,6 +1,6 @@
 'use strict';
 
-var Util = require('../../util');
+var helper = require('../../helper');
 var _ = require('lodash');
 
 module.exports = function ($scope) {
@@ -45,7 +45,7 @@ module.exports = function ($scope) {
       errorMessages.push('两次输入的密码不一样！');
     }
     if (!_.isEmpty(errorMessages)) {
-      return Util.showErrorAlert(errorMessages[0], onProcessingEnd);
+      return helper.showErrorAlert(errorMessages[0], onProcessingEnd);
     }
 
     AV.User.signUp(username, password, { nickname: nickname }).
@@ -53,7 +53,7 @@ module.exports = function ($scope) {
         navi.clearAllPages();
         navi.pushPageWithHistory('user/upload-avatar.html', { animation: 'fade', afterRegister: true });
       }, function (err) {
-        Util.showErrorAlert(Util.translate(err.message), onProcessingEnd);
+        helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
       });
   };
 };

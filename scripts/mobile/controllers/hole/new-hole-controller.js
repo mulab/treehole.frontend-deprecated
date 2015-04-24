@@ -1,7 +1,7 @@
 'use strict';
 
 var Hole = require('models/hole');
-var Util = require('../../util');
+var helper = require('../../helper');
 var _ = require('lodash');
 
 module.exports = function ($scope) {
@@ -22,7 +22,7 @@ module.exports = function ($scope) {
       errorMessages.push('树洞内容不能为空！');
     }
     if (!_.isEmpty(errorMessages)) {
-      return Util.showErrorAlert(errorMessages[0], onProcessingEnd);
+      return helper.showErrorAlert(errorMessages[0], onProcessingEnd);
     }
 
     Hole.createNewHole($scope.content, null, $scope.images).
@@ -30,7 +30,7 @@ module.exports = function ($scope) {
         navi.clearAllPages();
         navi.pushPageWithHistory('hole/list.html', { animation: 'fade' });
       }, function (err) {
-        Util.showErrorAlert(Util.translate(err.message), onProcessingEnd);
+        helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
       });
   };
 };
