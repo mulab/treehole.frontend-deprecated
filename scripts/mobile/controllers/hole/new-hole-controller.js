@@ -4,7 +4,7 @@ var Hole = require('models/hole');
 var helper = require('../../helper');
 var _ = require('lodash');
 
-module.exports = function ($scope) {
+module.exports = function ($scope, $compile) {
   $scope.waitingSubmit = false;
   $scope.images = [];
 
@@ -25,12 +25,38 @@ module.exports = function ($scope) {
       return helper.showErrorAlert(errorMessages[0], onProcessingEnd);
     }
 
-    Hole.createNewHole($scope.content, null, $scope.images).
-      then(function () {
-        navi.clearAllPages();
-        navi.pushPageWithHistory('hole/list.html', { animation: 'fade' });
-      }, function (err) {
-        helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
-      });
+    var modalVisible = false;
+
+    Hole.createNewHole($scope.content, null, $scope.images, {
+      onImageUploadStart: function (index) {
+        var modalContent = angular.element('<div id="modal-container"><ons-icon icon="ion-load-c" spin="true"></ons-icon><br><br>正在上传第' + (index + 1) + '张图片，共' + ($scope.images.length) + '张</div>');
+        $compile(modalContent)($scope);
+        angular.element(document.getElementById('modal-container')).replaceWith(modalContent);
+        if (!modalVisible) {
+          modal.show();
+          modalVisible = true;
+        }
+      },
+      onPublishStart: function () {
+        var modalContent = angular.element('<div id="modal-container"><ons-icon icon="ion-load-c" spin="true"></ons-icon><br><br>正在发布</div>');
+        $compile(modalContent)($scope);
+        angular.element(document.getElementById('modal-container')).replaceWith(modalContent);
+        if (!modalVisible) {
+          modal.show();
+          modalVisible = true;
+        }
+      }
+    }).then(function () {
+      if (modalVisible) {
+        modal.hide();
+      }
+      navi.clearAllPages();
+      navi.pushPageWithHistory('hole/list.html', { animation: 'fade' });
+    }, function (err) {
+      if (modalVisible) {
+        modal.hide();
+      }
+      helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
+    });
   };
 };
