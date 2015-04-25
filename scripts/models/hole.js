@@ -23,9 +23,12 @@ var Hole = AV.Object.extend('Hole', {
     return Bluebird.coroutine(function* () {
       var i;
       var images = [];
+      var imageAcl = new AV.ACL();
+      imageAcl.setPublicReadAccess(true);
       for (i = 0; i < imageFiles.length; i ++) {
         var file = imageFiles[i];
         var imageFile = new AV.File(file.name, file);
+        imageFile.setACL(imageAcl);
         yield imageFile.save();
         var image = Image.new({
           file: imageFile
