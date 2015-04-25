@@ -40,7 +40,7 @@
                            ng-click="navi.pushPageWithHistory('hole/show.html', { animation: 'fade', hole: hole })">
               <div class="hole-container">
                 <div ng-if="hole.get('images').length > 0" class="image">
-                  <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(100, 100) }}">
+                  <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(100, 100, 100, false) }}">
                 </div>
                 <div class="content">
                   {{ hole.get('content') }}

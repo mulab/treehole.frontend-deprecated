@@ -96,6 +96,17 @@ module.exports = function ($scope) {
       }
     });
 
+    $scope.getAvatarUrl = function (user, size) {
+      if (!user.get('avatar')) {
+        return '/default-avatar.png';
+      }
+      if (size) {
+        return user.get('avatar').thumbnailURL(size, size);
+      } else {
+        return user.get('avatar').url();
+      }
+    };
+
     if (AV.User.current()) {
       AV.User.current().fetch().then(function () {
         $scope.$apply();

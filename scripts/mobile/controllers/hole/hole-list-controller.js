@@ -8,6 +8,7 @@ module.exports = function ($scope, $timeout) {
     var query = new AV.Query(Hole);
     query.descending('createdAt');
     query.include('author');
+    query.include('author.avatar');
     query.include('images');
     query.find().then(function (holes) {
       $scope.holes = holes;
