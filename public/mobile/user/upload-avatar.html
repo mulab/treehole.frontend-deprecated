@@ -25,11 +25,13 @@
           <ons-button modifier="outline" class="select-button" ng-disabled="waitingLoading || waitingSubmit">
             <span ng-if="!waitingLoading">选择图片</span>
             <span ng-if="waitingLoading">加载中</span>
+            <span ng-if="waitingLoading" loading-dots></span>
           </ons-button>
         </div>
         <ons-button modifier="outline" ng-click="upload()" ng-disabled="avatar === '' || waitingLoading || waitingSubmit">
           <span ng-if="!waitingSubmit">确定上传</span>
           <span ng-if="waitingSubmit">上传中</span>
+          <span ng-if="waitingSubmit" loading-dots></span>
         </ons-button>
       </div>
     </div>

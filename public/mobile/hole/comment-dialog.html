@@ -10,7 +10,11 @@
         <div class="buttons">
           <div class="submit-button">
             <ons-button modifier="large--cta" class="submit-button"
-                        ng-click="submitComment()" ng-disabled="waitingSubmit">确定</ons-button>
+                        ng-click="submitComment()" ng-disabled="waitingSubmit">
+              <span ng-if="!waitingSubmit">确定</span>
+              <span ng-if="waitingSubmit">发布中</span>
+              <span ng-if="waitingSubmit" loading-dots></span>
+            </ons-button>
           </div>
         </div>
       </div>

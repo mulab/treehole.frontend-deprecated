@@ -15,7 +15,11 @@
       <input type="text" ng-model="username" class="text-input--underbar" placeholder="清华账号">
       <input type="password" ng-model="password" class="text-input--underbar" placeholder="密码">
       <br><br>
-      <ons-button modifier="large" class="submit-button" ng-click="submit()" ng-disabled="waitingSubmit">确定</ons-button>
+      <ons-button modifier="large" class="submit-button" ng-click="submit()" ng-disabled="waitingSubmit">
+        <span ng-if="!waitingSubmit">确定</span>
+        <span ng-if="waitingSubmit">验证中</span>
+        <span ng-if="waitingSubmit" loading-dots></span>
+      </ons-button>
     </div>
 
     <div class="skip" ng-if="afterRegister">

@@ -24,7 +24,11 @@
       </div>
 
       <div class="vspc form-row">
-        <ons-button ng-click="register()" modifier="large--cta" ng-disabled="waitingSubmit">提交</ons-button>
+        <ons-button ng-click="register()" modifier="large--cta" ng-disabled="waitingSubmit">
+          <span ng-if="!waitingSubmit">提交</span>
+          <span ng-if="waitingSubmit">提交中</span>
+          <span ng-if="waitingSubmit" loading-dots></span>
+        </ons-button>
       </div>
     </div>
   </div>
