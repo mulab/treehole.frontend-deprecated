@@ -54,7 +54,7 @@ module.exports = function ($compile, resizeService) {
           reader.onload = function () {
             var img = reader.result;
             if (file.size > 500 * 1024) {  // greater than 500KiB
-              resizeService.resizeImage(img, { size: 500, sizeScale: 'ko' }, function (err, resizedImg) {
+              resizeService.resizeImage(img, { size: 500, height: 1080, sizeScale: 'ko' }, function (err, resizedImg) {
                 if (err) {
                   modal.hide();
                   helper.showErrorAlert('图片读取失败！');

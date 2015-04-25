@@ -27,7 +27,7 @@
             <p>{{ hole.get('content') }}</p>
             <div class="images" ng-if="hole.get('images') && hole.get('images').length > 1">
               <div class="images-container">
-                <div class="image" ng-repeat="image in hole.get('images')">
+                <div class="image" ng-repeat="image in hole.get('images')" ng-click="showGallery($index)">
                   <img ng-src="{{ image.get('file').thumbnailURL(300, 300, 100, false) }}">
                 </div>
               </div>

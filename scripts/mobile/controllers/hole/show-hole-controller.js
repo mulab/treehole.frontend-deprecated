@@ -25,4 +25,22 @@ module.exports = function ($scope) {
       dialog.show();
     });
   };
+
+  var images = [];
+  var i;
+  for (i = 0; i < hole.get('images').length; i ++) {
+    var item = hole.get('images')[i];
+    images.push({
+      w: item.get('width'),
+      h: item.get('height'),
+      src: item.get('file').url()
+    });
+  }
+
+  $scope.showGallery = function (index) {
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    var options = { index: index, history: false, shareEl: false, captionEl: false, fullscreenEl: false };
+    var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, images, options);
+    gallery.init();
+  };
 };

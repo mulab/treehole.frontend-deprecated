@@ -48,6 +48,11 @@ gulp.task('copy-onsenui-css', function () {
     .pipe(gulp.dest('./public/assets/onsenui-css'));
 });
 
+gulp.task('copy-photoswipe-css', function () {
+  return gulp.src(['./bower_components/photoswipe/dist/**/*'])
+    .pipe(gulp.dest('./public/assets/photoswipe'));
+});
+
 gulp.task('build-stylesheets-dev', function () {
   return gulp.src('./stylesheets/mobile/index.less')
     .pipe(rename('mobile.bundle.less'))
@@ -111,7 +116,9 @@ gulp.task('copy-mobile-libraries-dev', function () {
     './bower_components/leancloud-javascript-sdk/dist/av.js',
     './bower_components/history/scripts/bundled-uncompressed/html5/native.history.js',
     './bower_components/ng-img-crop/compile/unminified/ng-img-crop.js',
-    './bower_components/angular-images-resizer/angular-images-resizer.js'
+    './bower_components/angular-images-resizer/angular-images-resizer.js',
+    './bower_components/photoswipe/dist/photoswipe.js',
+    './bower_components/photoswipe/dist/photoswipe-ui-default.js'
   ]).pipe(concat('mobile.vendor.js'))
     .pipe(gulp.dest('./public/assets'));
 });
@@ -123,7 +130,9 @@ gulp.task('copy-mobile-libraries', function () {
     './bower_components/leancloud-javascript-sdk/dist/av-mini.js',
     './bower_components/history/scripts/bundled/html5/native.history.js',
     './bower_components/ng-img-crop/compile/minified/ng-img-crop.js',
-    './bower_components/angular-images-resizer/angular-images-resizer.js'
+    './bower_components/angular-images-resizer/angular-images-resizer.js',
+    './bower_components/photoswipe/dist/photoswipe.min.js',
+    './bower_components/photoswipe/dist/photoswipe-ui-default.min.js'
   ]).pipe(concat('mobile.vendor.js'))
     .pipe(gulp.dest('./public/assets'));
 });
@@ -132,6 +141,7 @@ gulp.task('build-assets-dev', [
   'copy-polyfill',
   'copy-ismobile',
   'copy-onsenui-css',
+  'copy-photoswipe-css',
   'copy-config-dev',
   'copy-mobile-libraries-dev',
   'build-stylesheets-dev',
@@ -142,6 +152,7 @@ gulp.task('build-assets', [
   'copy-polyfill',
   'copy-ismobile',
   'copy-onsenui-css',
+  'copy-photoswipe-css',
   'copy-config',
   'copy-mobile-libraries',
   'build-stylesheets',
