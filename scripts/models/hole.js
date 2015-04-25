@@ -33,13 +33,12 @@ var Hole = AV.Object.extend('Hole', {
           options.onImageUploadStart(i);
         }
 
-        var file;
+        var file = imageFiles[i];
         var imageFile;
 
         var times = 3;
         var result = false;
         while (times > 0) {
-          file = imageFiles[i];
           imageFile = new AV.File(file.name, { base64: file.dataUrl.replace(/^data:image\/\w+;base64,/, '') });
           imageFile.setACL(imageAcl);
 
@@ -64,7 +63,9 @@ var Hole = AV.Object.extend('Hole', {
         }
 
         var image = Image.new({
-          file: imageFile
+          file: imageFile,
+          width: file.width,
+          height: file.height
         });
         images.push(image);
 

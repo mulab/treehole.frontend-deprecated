@@ -13,29 +13,34 @@ module.exports = function ($compile, resizeService) {
       var imageId = 0;
 
       function addImage(fileName, dataUrl) {
-        var currentImageId = imageId;
-        imageId += 1;
-        scope.images.push({ id: currentImageId, name: fileName, dataUrl: dataUrl });
-        var imageBox = angular.element('<ons-gesture-detector><div class="image-box"><img></div><ons-gesture-detector>');
-        imageBox.find('img').prop('src', dataUrl);
-        $compile(imageBox)(scope);
-        container[0].insertBefore(imageBox[0], addButton[0]);
-        imageBox.find('div').on('hold', function () {
-          ons.notification.confirm({
-            title: '确认',
-            message: '是否删除这张图片？',
-            buttonLabels: ['确认', '取消'],
-            callback: function (answer) {
-              if (answer === 0) {
-                imageBox.remove();
-                _.remove(scope.images, function (elem) {
-                  return elem.id === currentImageId;
-                });
+        var imageObj = new Image;
+        imageObj.src = dataUrl;
+
+        imageObj.onload = function () {
+          var currentImageId = imageId;
+          imageId += 1;
+          scope.images.push({ id: currentImageId, name: fileName, dataUrl: dataUrl, width: imageObj.width, height: imageObj.height });
+          var imageBox = angular.element('<ons-gesture-detector><div class="image-box"><img></div><ons-gesture-detector>');
+          imageBox.find('img').prop('src', dataUrl);
+          $compile(imageBox)(scope);
+          container[0].insertBefore(imageBox[0], addButton[0]);
+          imageBox.find('div').on('hold', function () {
+            ons.notification.confirm({
+              title: '确认',
+              message: '是否删除这张图片？',
+              buttonLabels: ['确认', '取消'],
+              callback: function (answer) {
+                if (answer === 0) {
+                  imageBox.remove();
+                  _.remove(scope.images, function (elem) {
+                    return elem.id === currentImageId;
+                  });
+                }
               }
-            }
+            });
           });
-        });
-        modal.hide();
+          modal.hide();
+        };
       }
 
       fileInput.on('change', function () {
