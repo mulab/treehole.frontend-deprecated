@@ -27,7 +27,7 @@
             <span ng-if="waitingLoading">加载中</span>
           </ons-button>
         </div>
-        <ons-button modifier="outline" ng-click="upload()" ng-disabled="waitingLoading || waitingSubmit">
+        <ons-button modifier="outline" ng-click="upload()" ng-disabled="avatar === '' || waitingLoading || waitingSubmit">
           <span ng-if="!waitingSubmit">确定上传</span>
           <span ng-if="waitingSubmit">上传中</span>
         </ons-button>
