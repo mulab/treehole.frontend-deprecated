@@ -18,7 +18,9 @@ exports.showErrorAlert = function (message, callback) {
 var TABLE = {
   'Username has already been taken': '用户名已被占用！',
   'Could not find user': '用户名或密码错误！',
-  'The username and password mismatch.': '用户名或密码错误！'
+  'The username and password mismatch.': '用户名或密码错误！',
+  'Tsinghua authentication: username or password incorrect.': '清华账号或密码错误！',
+  'Tsinghua authentication: connection error.': '暂时无法连接到服务器，请稍后重试！'
 };
 
 exports.translate = function (message) {

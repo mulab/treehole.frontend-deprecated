@@ -3,6 +3,8 @@
 var Hole = require('models/hole');
 
 module.exports = function ($scope) {
+  $scope.user = AV.User.current();
+
   $scope.hole = [];
   var query = new AV.Query(Hole);
   query.descending('createdAt');

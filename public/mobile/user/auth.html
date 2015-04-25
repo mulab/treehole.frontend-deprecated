@@ -1,0 +1,26 @@
+<ons-page>
+  <div class="user-auth" ng-controller="UserAuthController">
+    <ons-toolbar fixed-style>
+      <div class="left">
+        <div ng-if="!afterRegister">
+          <ons-toolbar-button ng-click="navi.popPageWithHistory({ 'animation': 'fade' })">
+            <ons-icon style="margin-left: 5px;" icon="ion-ios-arrow-back" size="32px"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </div>
+      <div class="center">验证清华账号</div>
+    </ons-toolbar>
+
+    <div class="auth-form">
+      <input type="text" ng-model="username" class="text-input--underbar" placeholder="清华账号">
+      <input type="password" ng-model="password" class="text-input--underbar" placeholder="密码">
+      <br><br>
+      <ons-button modifier="large" class="submit-button" ng-click="submit()" ng-disabled="waitingSubmit">确定</ons-button>
+    </div>
+
+    <div class="skip" ng-if="afterRegister">
+      <span style="margin-right: 2px">或者</span>
+      <a style="color: rgba(24,103,194,0.81)" ng-click="nextStep()">跳过该步骤</a>
+    </div>
+  </div>
+</ons-page>

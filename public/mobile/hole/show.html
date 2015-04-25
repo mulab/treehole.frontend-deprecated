@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <ons-bottom-toolbar>
+    <ons-bottom-toolbar ng-if="user.get('tsinghuaAuth')">
       <div class="bottom-toolbar">
         <div class="center">
           <ons-button modifier="quiet" ng-click="showCommentDialog()">评论</ons-button>

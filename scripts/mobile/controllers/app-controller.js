@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function ($scope) {
   ons.ready(function () {
     var pageId = 1;
     navi.pushPageWithHistory = function (pageUrl, options) {
@@ -95,6 +95,14 @@ module.exports = function () {
         }
       }
     });
+
+    if (AV.User.current()) {
+      AV.User.current().fetch().then(function () {
+        $scope.$apply();
+      }, function (err) {
+        console.error(err);
+      });
+    }
 
     navi.redirectToIndex({ animation: 'none' });
   });

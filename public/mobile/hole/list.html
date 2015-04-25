@@ -12,7 +12,7 @@
             </div>
             <div class="center">默认频道</div>
             <div class="right">
-              <ons-toolbar-button ng-click="navi.pushPageWithHistory('hole/new.html', { animation: 'fade' })">
+              <ons-toolbar-button ng-if="user.get('tsinghuaAuth')" ng-click="navi.pushPageWithHistory('hole/new.html', { animation: 'fade' })">
                 <ons-icon icon="ion-android-add" size="32px"></ons-icon>
               </ons-toolbar-button>
             </div>
@@ -38,20 +38,6 @@
               </ons-list-item>
             </ons-list>
           </div>
-
-          <!--<ons-bottom-toolbar>
-            <div class="bottom-toolbar">
-              <div class="center">
-                <ons-button modifier="quiet"
-                            ng-click="navi.pushPageWithHistory('hole/new.html', { animation: 'fade' })">
-                  新树洞
-                </ons-button>
-              </div>
-
-            </div>
-
-          </ons-bottom-toolbar>-->
-
         </div>
       </ons-page>
     </div>

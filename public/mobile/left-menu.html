@@ -8,7 +8,8 @@
         {{ user.get('nickname') }}
       </div>
       <div class="information">
-        清华认证用户
+        <span ng-if="user.get('tsinghuaAuth')">清华认证用户</span>
+        <span ng-if="!user.get('tsinghuaAuth')">未认证用户</span>
       </div>
     </div>
   </div>
@@ -33,6 +34,10 @@
   <br>
 
   <ons-list class="bottom-menu-list">
+    <ons-list-item class="bottom-menu-item" ng-if="!user.get('tsinghuaAuth')"
+                   ng-click="navi.pushPageWithHistory('user/auth.html', { animation: 'fade' });">
+      进行清华认证
+    </ons-list-item>
     <ons-list-item class="bottom-menu-item" ng-click="logout()">
       登出
     </ons-list-item>

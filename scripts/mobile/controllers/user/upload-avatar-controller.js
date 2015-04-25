@@ -36,6 +36,7 @@ module.exports = function ($scope) {
     if ($scope.waitingLoading || $scope.waitingSubmit) {
       return;
     }
-    navi.redirectToIndex({ animation: 'fade' });
+    navi.clearAllPages();
+    navi.pushPageWithHistory('user/auth.html', { animation: 'fade', afterRegister: true });
   };
 };

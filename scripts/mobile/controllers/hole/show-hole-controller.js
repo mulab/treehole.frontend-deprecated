@@ -5,6 +5,7 @@ var Hole = require('models/hole');
 module.exports = function ($scope) {
   var hole = navi.getCurrentPage().options.hole;
   $scope.hole = hole;
+  $scope.user = AV.User.current();
 
   function refreshComments() {
     hole.fetchComments().then(function (comments) {
