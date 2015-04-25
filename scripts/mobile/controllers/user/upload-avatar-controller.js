@@ -18,8 +18,16 @@ module.exports = function ($scope) {
 
   $scope.upload = function () {
     $scope.waitingSubmit = true;
+    var acl = new AV.ACL();
+    acl.setPublicReadAccess(true);
+    acl.setWriteAccess(AV.User.current(), true);
     var avatar = new AV.File('avatar.png', { base64: $scope.croppedAvatar.replace(/^data:image\/png;base64,/, '') });
+    avatar.setACL(acl);
+    var originalAvatar = AV.User.current().get('avatar');
     AV.User.current().save({ avatar: avatar }).then(function () {
+      if (originalAvatar) {
+        originalAvatar.destroy();
+      }
       if ($scope.afterRegister) {
         $scope.waitingSubmit = false;
         $scope.nextStep();
