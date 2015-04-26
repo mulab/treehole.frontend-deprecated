@@ -37,7 +37,7 @@
         <div class="hole-list">
           <ons-list>
             <ons-list-item ng-repeat="hole in holes" modifier="tappable"
-                           ng-click="navi.pushPageWithHistory('hole/show.html', { animation: 'fade', hole: hole })">
+                           ng-click="navi.pushPageWithHistory('hole/show.html', { animation: 'fade', holeId: hole.getObjectId() })">
               <div class="hole-container">
                 <div ng-if="hole.get('images').length > 0" class="image">
                   <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(100, 100, 100, false) }}">

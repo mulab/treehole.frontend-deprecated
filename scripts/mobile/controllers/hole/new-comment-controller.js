@@ -28,7 +28,7 @@ module.exports = function ($scope) {
     $scope.hole.createComment($scope.commentContent).
       then(function () {
         $scope.commentDialog.destroy();
-        $scope.refreshComments();
+        $scope.refresh();
       }, function (err) {
         $scope.commentDialog.destroy();
         helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);

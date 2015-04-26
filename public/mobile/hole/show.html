@@ -9,7 +9,7 @@
       <div class="center">详情</div>
     </ons-toolbar>
 
-    <ons-list>
+    <ons-list ng-if="hole && comments">
       <ons-list-item>
         <div class="main">
           <div class="top-part clearfix">
@@ -56,7 +56,7 @@
       </ons-list-item>
     </ons-list>
 
-    <ons-bottom-toolbar ng-if="user.get('tsinghuaAuth')">
+    <ons-bottom-toolbar ng-if="hole && comments && user.get('tsinghuaAuth')">
       <div class="bottom-toolbar">
         <div class="center">
           <ons-button modifier="quiet" ng-click="showCommentDialog()">评论</ons-button>
