@@ -6,15 +6,15 @@
         <ons-pull-hook var="loader" ng-action="refresh($done)">
           <span ng-switch="loader.getCurrentState()">
             <span ng-switch-when="initial">
-              <ons-icon size="35px" icon="ion-arrow-down-a"></ons-icon>
+              <ons-icon size="30px" icon="ion-arrow-down-a"></ons-icon>
               下拉刷新列表
             </span>
             <span ng-switch-when="preaction">
-              <ons-icon size="35px" icon="ion-arrow-up-a"></ons-icon>
+              <ons-icon size="30px" icon="ion-arrow-up-a"></ons-icon>
               松开以刷新列表
             </span>
             <span ng-switch-when="action">
-              <ons-icon size="35px" spin="true" icon="ion-load-d"></ons-icon>
+              <ons-icon size="30px" spin="true" icon="ion-load-d"></ons-icon>
               树洞加载中
             </span>
           </span>
