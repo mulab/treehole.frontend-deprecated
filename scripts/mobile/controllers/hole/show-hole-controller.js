@@ -2,7 +2,7 @@
 
 var Hole = require('models/hole');
 
-module.exports = function ($scope) {
+module.exports = function ($scope, $rootScope) {
   var hole = navi.getCurrentPage().options.hole;
   $scope.hole = hole;
   $scope.user = AV.User.current();
@@ -41,6 +41,10 @@ module.exports = function ($scope) {
     var pswpElement = document.querySelectorAll('.pswp')[0];
     var options = { index: index, history: false, shareEl: false, captionEl: false, fullscreenEl: false };
     var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, images, options);
+    $rootScope.photoSwipe = gallery;
+    gallery.listen('destroy', function () {
+      $rootScope.photoSwipe = null;
+    });
     gallery.init();
   };
 };

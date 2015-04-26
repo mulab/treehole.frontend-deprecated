@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope) {
+module.exports = function ($scope, $rootScope) {
   ons.ready(function () {
     var pageId = 1;
     navi.pushPageWithHistory = function (pageUrl, options) {
@@ -86,11 +86,16 @@ module.exports = function ($scope) {
             }
           }
         } else {
-          for (i = index + 1; i < pages.length; i ++) {
-            navi.popPage({ 'animation': 'slide' });
-          }
-          if (index === 0) {
-            window.location.href = '/mobile';
+          if (!$rootScope.photoSwipe) {
+            for (i = index + 1; i < pages.length; i ++) {
+              navi.popPage({ 'animation': 'slide' });
+            }
+            if (index === 0) {
+              window.location.href = '/mobile';
+            }
+          } else {
+            $rootScope.photoSwipe.close();
+            History.go(pages.length - 1 - index);
           }
         }
       }
