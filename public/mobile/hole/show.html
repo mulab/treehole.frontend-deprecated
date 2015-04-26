@@ -32,6 +32,11 @@
                 </div>
               </div>
             </div>
+            <div class="individual-image" ng-if="hole.get('images') && hole.get('images').length === 1">
+              <div class="image" ng-click="showGallery(0)">
+                <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(500, 500) }}">
+              </div>
+            </div>
           </div>
         </div>
       </ons-list-item>
