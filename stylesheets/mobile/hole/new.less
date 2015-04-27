@@ -50,12 +50,18 @@
           border: 2px dashed #ddd;
           border-radius: 5px;
           .plus-icon {
-            font-size: 7.5vw;
-            position: relative;
+            position: absolute;
             top: 50%;
-            transform: translateY(-50%);
-            text-align: center;
-            color: grey;
+            margin-top: -15px; /* half of #content height*/
+            left: 0;
+            width: 100%;
+            .container {
+              margin: auto;
+              width: 50px;
+              height: 30px;
+              text-align: center;
+              color: grey;
+            }
           }
           .file-input {
             position: absolute;
