@@ -47,7 +47,16 @@ module.exports = function ($scope, $rootScope) {
 
   $scope.showGallery = function (index) {
     var pswpElement = document.querySelectorAll('.pswp')[0];
-    var options = { index: index, history: false, shareEl: false, captionEl: false, fullscreenEl: false };
+    var options = {
+      index: index,
+      history: false,
+      captionEl: false,
+      fullscreenEl: false,
+      pinchToClose: false,
+      shareButtons: [
+        { id:'download', label:'下载原图', url:'{{raw_image_url}}', download: true }
+      ]
+    };
     var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, imageArray, options);
     $rootScope.photoSwipe = gallery;
     gallery.listen('destroy', function () {
