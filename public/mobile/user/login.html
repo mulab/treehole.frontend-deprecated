@@ -5,7 +5,7 @@
     </ons-toolbar>
 
     <div class="login-form" ng-controller="LoginController">
-      <input type="text" ng-model="username" class="text-input--underbar" placeholder="用户名">
+      <input type="text" autocorrect="off" autocapitalize="off" ng-model="username" class="text-input--underbar" placeholder="用户名">
       <input type="password" ng-model="password" class="text-input--underbar" placeholder="密码">
       <br><br>
       <ons-button modifier="large" class="login-button" ng-click="login()" ng-disabled="waitingLogin">
