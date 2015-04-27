@@ -1,15 +1,60 @@
 .hole-list {
   .hole-container {
-    line-height : normal;
-    padding: 10px;
-    .content {
-      font-size: 26px;
-      margin-bottom: 7px;
+    padding: 10px 5px;
+    line-height: 1em;
+    .avatar {
+      float: left;
+      img {
+        width: 44px;
+        height: 44px;
+        border-radius: 22px;
+      }
     }
-    .footer {
-      font-size: 14px;
-      .author {
-        margin-right: 5px;
+    .right-part {
+      margin-left: 56px;
+      .nickname {
+        margin-top: 10px;
+        font-size: 18px;
+      }
+      .content {
+        margin-top: 10px;
+        p {
+          line-height: 1.5em;
+          margin: 0;
+          font-size: 16px;
+        }
+      }
+      .publish-time {
+        margin-top: 5px;
+        font-size: 12px;
+        color: #999;
+      }
+
+      .images, .individual-image {
+        line-height: 1em;
+        margin: 10px 15px 7px 0;
+        .image {
+          line-height: 1em;
+          img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 120px;
+          }
+        }
+      }
+      .images {
+        .images-container {
+          padding-left: 3px;
+          display: inline-block;
+          line-height: 1em;
+          font-size: 0;
+          .image {
+            display: inline-block;
+            margin: 2px 2px;
+            width: 31.5%;
+          }
+        }
       }
     }
   }
