@@ -53,9 +53,12 @@ module.exports = function ($scope, $rootScope) {
       captionEl: false,
       fullscreenEl: false,
       pinchToClose: false,
-      shareButtons: [
-        { id:'download', label:'下载原图', url:'{{raw_image_url}}', download: true }
-      ]
+      closeOnScroll: false,
+      closeOnVerticalDrag: false,
+      shareEl: false,
+      isClickableElement: function(el) {
+        return el.tagName === 'A' || el.tagName === 'IMG';
+      }
     };
     var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, imageArray, options);
     $rootScope.photoSwipe = gallery;
