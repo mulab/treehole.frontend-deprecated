@@ -15,7 +15,8 @@
       <div class="crop-area-container">
         <div class="crop-area">
           <img-crop image="avatar" result-image="croppedAvatar" result-image-format="image/png"
-                    on-load-done="waitingLoading = false"></img-crop>
+                    on-load-done="waitingLoading = false"
+                    on-load-error="errorLoading()"></img-crop>
         </div>
       </div>
 

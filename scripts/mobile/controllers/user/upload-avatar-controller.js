@@ -16,6 +16,15 @@ module.exports = function ($scope) {
     });
   }
 
+  $scope.errorLoading = function () {
+    helper.showErrorAlert('载入失败！', function () {
+      $scope.$apply(function () {
+        $scope.avatar = '';
+        $scope.waitingLoading = false;
+      });
+    });
+  };
+
   $scope.upload = function () {
     $scope.waitingSubmit = true;
     var acl = new AV.ACL();

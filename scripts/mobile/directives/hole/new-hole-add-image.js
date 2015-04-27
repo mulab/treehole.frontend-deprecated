@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var helper = require('../../helper');
+var base64Mime = require('base64mime');
 
 module.exports = function ($compile, resizeService) {
   return {
@@ -53,6 +54,11 @@ module.exports = function ($compile, resizeService) {
           var reader = new FileReader();
           reader.onload = function () {
             var img = reader.result;
+            if (!base64Mime(img).startsWith('image')) {
+              modal.hide();
+              helper.showErrorAlert('图片读取失败！');
+              return;
+            }
             if (file.size > 500 * 1024) {  // greater than 500KiB
               resizeService.resizeImage(img, { size: 500, height: 1080, sizeScale: 'ko' }, function (err, resizedImg) {
                 if (err) {
