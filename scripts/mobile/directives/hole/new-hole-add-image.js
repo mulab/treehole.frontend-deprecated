@@ -7,8 +7,8 @@ module.exports = function ($compile, resizeService) {
   return {
     restrict: 'A',
     link: function (scope, element) {
-      var addButton = angular.element(element[0].querySelector('.add-image'));
-      var container = addButton.parent();
+      var addButton = angular.element(element[0].querySelector('.add-image')).parent().parent();
+      var container = angular.element(element[0].querySelector('.image-container'));
       var fileInput = angular.element(element[0].querySelector('.file-input'));
       var imageId = 0;
 
@@ -20,7 +20,7 @@ module.exports = function ($compile, resizeService) {
           var currentImageId = imageId;
           imageId += 1;
           scope.images.push({ id: currentImageId, name: fileName, dataUrl: dataUrl, width: imageObj.width, height: imageObj.height });
-          var imageBox = angular.element('<ons-gesture-detector><div class="image-box"><img></div><ons-gesture-detector>');
+          var imageBox = angular.element('<div class="square-box"><div class="inner"><ons-gesture-detector class="image-box"><img></ons-gesture-detector></div></div>');
           imageBox.find('img').prop('src', dataUrl);
           $compile(imageBox)(scope);
           container[0].insertBefore(imageBox[0], addButton[0]);
