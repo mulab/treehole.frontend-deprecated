@@ -91,10 +91,12 @@ gulp.task('build-scripts-dev', function (callback) {
 
 gulp.task('build-scripts', function (callback) {
   var config = require('./webpack.config');
-  config.plugins.push(new ngAnnotatePlugin({ add: true }));
   config.plugins.push(new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false
+    },
+    mangle: {
+      except: ['$scope', '$rootScope', '$compile', '$timeout', '$interval', 'resizeService']
     }
   }));
   webpack(config, webpackCallback(callback));
@@ -167,7 +169,7 @@ gulp.task('copy-static', function () {
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('uuid-assets', function () {
+gulp.task('uuid-assets', ['build-assets'], function () {
   var rev = uuid.v1();
 
   var copyAssets = gulp.src(['./build/assets/**/*'])
