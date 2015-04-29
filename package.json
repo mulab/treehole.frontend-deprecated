@@ -13,12 +13,15 @@
     "gulp-minify-css": "~0.5.x",
     "gulp-plumber": "~0.6.x",
     "gulp-rename": "~1.2.x",
+    "gulp-replace": "~0.5.3",
     "gulp-util": "~3.0.x",
     "gulp-webpack": "~1.2.x",
     "gulp-webserver": "~0.9.x",
     "less": "~2.4.x",
     "lodash": "~3.6.x",
+    "merge-stream": "~0.1.7",
     "ng-annotate-webpack-plugin": "~0.1.x",
+    "node-uuid": "~1.4.3",
     "webpack": "~1.6.x"
   }
 }

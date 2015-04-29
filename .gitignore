@@ -1,6 +1,6 @@
 node_modules/
 bower_components/
-public/assets
+build/
 
 ##################################
 # IDE, editor, system related

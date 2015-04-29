@@ -103,7 +103,7 @@ module.exports = function ($scope, $rootScope) {
 
     $scope.getAvatarUrl = function (user, size) {
       if (!user.get('avatar')) {
-        return '/default-avatar.png';
+        return '/assets/default-avatar.png';
       }
       if (size) {
         return user.get('avatar').thumbnailURL(size, size);

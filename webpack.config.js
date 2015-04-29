@@ -7,7 +7,7 @@ module.exports = {
     mobile: path.join(__dirname, 'scripts', 'mobile', 'app.js')
   },
   output: {
-    path: path.join(__dirname, 'public', 'assets'),
+    path: path.join(__dirname, 'build', 'assets'),
     filename: '[name].bundle.js'
   },
   resolve: {

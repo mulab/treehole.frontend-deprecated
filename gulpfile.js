@@ -11,6 +11,9 @@ var minifyCSS = require('gulp-minify-css');
 var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 var webserver = require('gulp-webserver');
 var concat = require('gulp-concat');
+var uuid = require('node-uuid');
+var replace = require('gulp-replace');
+var merge = require('merge-stream');
 
 function errorHandler(moduleName) {
   return function (err) {
@@ -35,22 +38,22 @@ function webpackCallback(callback) {
 
 gulp.task('copy-polyfill', function () {
   return gulp.src('./node_modules/babel-core/browser-polyfill.js')
-    .pipe(gulp.dest('./public/assets'));
+    .pipe(gulp.dest('./build/assets'));
 });
 
 gulp.task('copy-ismobile', function () {
   return gulp.src(['./bower_components/isMobile/isMobile.min.js'])
-    .pipe(gulp.dest('./public/assets'));
+    .pipe(gulp.dest('./build/assets'));
 });
 
 gulp.task('copy-onsenui-css', function () {
   return gulp.src(['./bower_components/onsenui/build/css/**/*'])
-    .pipe(gulp.dest('./public/assets/onsenui-css'));
+    .pipe(gulp.dest('./build/assets/onsenui-css'));
 });
 
 gulp.task('copy-photoswipe-css', function () {
   return gulp.src(['./bower_components/photoswipe/dist/**/*'])
-    .pipe(gulp.dest('./public/assets/photoswipe'));
+    .pipe(gulp.dest('./build/assets/photoswipe'));
 });
 
 gulp.task('build-stylesheets-dev', function () {
@@ -63,7 +66,7 @@ gulp.task('build-stylesheets-dev', function () {
         path.join(__dirname, 'stylesheets', 'mobile')
       ]
     }))
-    .pipe(gulp.dest('./public/assets'));
+    .pipe(gulp.dest('./build/assets'));
 });
 
 gulp.task('build-stylesheets', function () {
@@ -77,7 +80,7 @@ gulp.task('build-stylesheets', function () {
       ]
     }))
     .pipe(minifyCSS())
-    .pipe(gulp.dest('./public/assets'));
+    .pipe(gulp.dest('./build/assets'));
 });
 
 gulp.task('build-scripts-dev', function (callback) {
@@ -100,13 +103,13 @@ gulp.task('build-scripts', function (callback) {
 gulp.task('copy-config-dev', function () {
   return gulp.src('./config/development.js')
     .pipe(rename('config.js'))
-    .pipe(gulp.dest('./public/assets'));
+    .pipe(gulp.dest('./build/assets'));
 });
 
 gulp.task('copy-config', function () {
   return gulp.src('./config/production.js')
     .pipe(rename('config.js'))
-    .pipe(gulp.dest('./public/assets'));
+    .pipe(gulp.dest('./build/assets'));
 });
 
 gulp.task('copy-mobile-libraries-dev', function () {
@@ -120,7 +123,7 @@ gulp.task('copy-mobile-libraries-dev', function () {
     './bower_components/photoswipe/dist/photoswipe.js',
     './bower_components/photoswipe/dist/photoswipe-ui-default.js'
   ]).pipe(concat('mobile.vendor.js'))
-    .pipe(gulp.dest('./public/assets'));
+    .pipe(gulp.dest('./build/assets'));
 });
 
 gulp.task('copy-mobile-libraries', function () {
@@ -134,7 +137,7 @@ gulp.task('copy-mobile-libraries', function () {
     './bower_components/photoswipe/dist/photoswipe.min.js',
     './bower_components/photoswipe/dist/photoswipe-ui-default.min.js'
   ]).pipe(concat('mobile.vendor.js'))
-    .pipe(gulp.dest('./public/assets'));
+    .pipe(gulp.dest('./build/assets'));
 });
 
 gulp.task('build-assets-dev', [
@@ -159,8 +162,41 @@ gulp.task('build-assets', [
   'build-scripts'
 ]);
 
-gulp.task('watch', ['build-assets-dev'], function () {
+gulp.task('copy-static', function () {
+  return gulp.src(['./static/**/*'])
+    .pipe(gulp.dest('./build'));
+});
+
+gulp.task('uuid-assets', function () {
+  var rev = uuid.v1();
+
+  var copyAssets = gulp.src(['./build/assets/**/*'])
+    .pipe(gulp.dest('./build/assets-' + rev));
+
+  var replaceMainIndex = gulp.src(['./static/index.html'])
+    .pipe(replace('/assets/', '/assets-' + rev + '/'))
+    .pipe(gulp.dest('./build'));
+  var replaceMobileIndex = gulp.src(['./static/mobile/index.html'])
+    .pipe(replace('/assets/', '/assets-' + rev + '/'))
+    .pipe(gulp.dest('./build/mobile'));
+
+  return merge(copyAssets, replaceMainIndex, replaceMobileIndex);
+});
+
+gulp.task('build-dev', [
+  'copy-static',
+  'build-assets-dev'
+]);
+
+gulp.task('build', [
+  'copy-static',
+  'build-assets',
+  'uuid-assets'
+]);
+
+gulp.task('watch', ['build-dev'], function () {
   gulp.watch('./stylesheets/**/*.less', ['build-stylesheets']);
+  gulp.watch('./static/**/*.less', ['copy-static']);
   var config = require('./webpack.config');
   config.devtool = 'source-map';
   config.watch = true;
@@ -168,7 +204,7 @@ gulp.task('watch', ['build-assets-dev'], function () {
 });
 
 gulp.task('serve', function () {
-  gulp.src('public').
+  gulp.src('build').
     pipe(webserver({
       host: '0.0.0.0'
     }));
