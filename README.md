@@ -11,7 +11,7 @@ Change to project root, and run
 ```Shell
 npm install
 bower install
-gulp build-assets-dev
+gulp build-dev
 gulp serve
 ```
 
