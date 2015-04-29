@@ -8,7 +8,6 @@ var path = require('path');
 var webpack = require('webpack');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
-var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 var webserver = require('gulp-webserver');
 var concat = require('gulp-concat');
 var uuid = require('node-uuid');
