@@ -6,6 +6,8 @@ module.exports = function ($scope, $rootScope) {
   var holeId = navi.getCurrentPage().options.holeId;
   $scope.user = AV.User.current();
   var imageArray;
+  var commentDialogs = {};
+  var currentHold;
 
   function refresh() {
     var query = new AV.Query(Hole);
@@ -23,20 +25,18 @@ module.exports = function ($scope, $rootScope) {
           src: item.get('file').url()
         });
       }
-      $scope.$apply(function () {
-        $scope.hole = hole;
-      });
+      currentHold = hole;
       return hole.fetchComments();
     }).then(function (comments) {
+      commentDialogs = {};
       $scope.$apply(function () {
+        $scope.hole = currentHold;
         $scope.comments = comments;
       });
     });
   }
   refresh();
   $scope.refresh = refresh;
-
-  var commentDialogs = {};
 
   $scope.showCommentDialog = function (replyTo) {
     var key = replyTo ? replyTo.getObjectId() : '';
