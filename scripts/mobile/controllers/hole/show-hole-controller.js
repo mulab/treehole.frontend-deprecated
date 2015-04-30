@@ -40,6 +40,12 @@ module.exports = function ($scope, $rootScope) {
     ons.createDialog('hole/comment-dialog.html', {
       parentScope: $scope
     }).then(function (dialog) {
+      $rootScope.goBackHandler = function () {
+        dialog.destroy();
+      };
+      dialog.on('destroy', function () {
+        $rootScope.goBackHandler = null;
+      });
       $scope.commentDialog = dialog;
       dialog.show();
     });
@@ -61,9 +67,11 @@ module.exports = function ($scope, $rootScope) {
       }
     };
     var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, imageArray, options);
-    $rootScope.photoSwipe = gallery;
+    $rootScope.goBackHandler = function () {
+      gallery.close();
+    };
     gallery.listen('destroy', function () {
-      $rootScope.photoSwipe = null;
+      $rootScope.goBackHandler = null;
     });
     gallery.init();
   };

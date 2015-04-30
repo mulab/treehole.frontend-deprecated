@@ -86,7 +86,7 @@ module.exports = function ($scope, $rootScope) {
             }
           }
         } else {
-          if (!$rootScope.photoSwipe) {
+          if (!$rootScope.goBackHandler) {
             for (i = index + 1; i < pages.length; i ++) {
               navi.popPage({ 'animation': 'slide' });
             }
@@ -94,7 +94,7 @@ module.exports = function ($scope, $rootScope) {
               window.location.href = '/mobile';
             }
           } else {
-            $rootScope.photoSwipe.close();
+            $rootScope.goBackHandler();
             History.go(pages.length - 1 - index);
           }
         }
