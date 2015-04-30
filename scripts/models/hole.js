@@ -15,14 +15,6 @@ var Hole = AV.Object.extend('Hole', {
     query.include('replyTo.author');
     query.equalTo('hole', this);
     return query.find();
-  },
-  createComment: function (content, replyTo) {
-    return Comment.new({
-      content: content,
-      replyTo: replyTo,
-      hole: this,
-      author: AV.User.current()
-    }).save();
   }
 }, {
   createNewHole: function (content, channel, imageFiles, options) {

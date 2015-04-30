@@ -1,5 +1,6 @@
 'use strict';
 
+var Comment = require('models/comment');
 var helper = require('../../helper');
 var _ = require('lodash');
 
@@ -25,13 +26,17 @@ module.exports = function ($scope) {
       return helper.showErrorAlert(errorMessages[0], onProcessingEnd);
     }
 
-    $scope.hole.createComment($scope.commentContent, $scope.replyTo).
-      then(function () {
-        $scope.currentCommentDialog.destroy();
-        $scope.refresh();
-      }, function (err) {
-        $scope.currentCommentDialog.destroy();
-        helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
-      });
+    Comment.new({
+      content: comment,
+      replyTo: $scope.replyTo,
+      hole: $scope.hole,
+      author: AV.User.current()
+    }).save().then(function () {
+      $scope.currentCommentDialog.destroy();
+      $scope.refresh();
+    }, function (err) {
+      $scope.currentCommentDialog.destroy();
+      helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
+    });
   };
 };
