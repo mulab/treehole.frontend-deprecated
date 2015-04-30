@@ -10,6 +10,7 @@ module.exports = function ($scope, $rootScope) {
   var currentHold;
 
   function refresh() {
+    $scope.ready = false;
     var query = new AV.Query(Hole);
     query.include('author');
     query.include('author.avatar');
@@ -30,6 +31,7 @@ module.exports = function ($scope, $rootScope) {
     }).then(function (comments) {
       commentDialogs = {};
       $scope.$apply(function () {
+        $scope.ready = true;
         $scope.hole = currentHold;
         $scope.comments = comments;
       });
@@ -46,7 +48,6 @@ module.exports = function ($scope, $rootScope) {
         dialog.hide();
       };
       dialog.on('prehide', function () {
-        console.log('onprehide');
         $rootScope.goBackHandler = null;
       });
       $scope.currentCommentDialog = dialog;

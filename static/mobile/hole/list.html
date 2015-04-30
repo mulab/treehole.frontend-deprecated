@@ -34,7 +34,13 @@
           </div>
         </ons-toolbar>
 
-        <div class="hole-list">
+        <div class="" ng-if="!ready">
+          <div class="loading-page">
+            <ons-icon icon="fa-spinner" size="60px" spin="true" fixed-width="true"></ons-icon>
+          </div>
+        </div>
+
+        <div class="hole-list" ng-if="ready">
           <ons-list>
             <ons-list-item ng-repeat="hole in holes" modifier="tappable"
                            ng-click="navi.pushPageWithHistory('hole/show.html', { animation: 'fade', holeId: hole.getObjectId() })">

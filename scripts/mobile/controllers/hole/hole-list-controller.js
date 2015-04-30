@@ -20,8 +20,11 @@ module.exports = function ($scope, $timeout) {
 
   $scope.user = AV.User.current();
   $scope.hole = [];
+  $scope.ready = false;
   refresh(function () {
-    $scope.$apply();
+    $scope.$apply(function () {
+      $scope.ready = true;
+    });
   });
   $scope.refresh = function ($done) {
     $timeout(function () {
