@@ -197,7 +197,7 @@ gulp.task('build', [
 
 gulp.task('watch', ['build-dev'], function () {
   gulp.watch('./stylesheets/**/*.less', ['build-stylesheets']);
-  gulp.watch('./static/**/*.less', ['copy-static']);
+  gulp.watch('./static/**/*', ['copy-static']);
   var config = require('./webpack.config');
   config.devtool = 'source-map';
   config.watch = true;
