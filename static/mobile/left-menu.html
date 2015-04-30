@@ -15,19 +15,10 @@
   </div>
 
   <ons-list class="menu-list">
-    <ons-list-item class="menu-item" ng-click="menu.close()">
-      <ons-icon icon="fa-caret-right"></ons-icon>
-      默认频道
-    </ons-list-item>
-
-    <ons-list-item class="menu-item" ng-click="menu.close()">
-      <ons-icon icon="fa-caret-right"></ons-icon>
-      频道1
-    </ons-list-item>
-
-    <ons-list-item class="menu-item" ng-click="menu.close()">
-      <ons-icon icon="fa-caret-right"></ons-icon>
-      频道2
+    <ons-list-item class="menu-item" ng-repeat="channel in channels" ng-click="menu.close(); switchChannel(channel);">
+      <ons-icon icon="fa-circle" size="16px" ng-if="currentChannel === channel"></ons-icon>
+      <ons-icon icon="fa-circle-o" size="16px" ng-if="currentChannel !== channel"></ons-icon>
+      {{ channel.get('name') }}
     </ons-list-item>
   </ons-list>
 

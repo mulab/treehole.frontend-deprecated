@@ -3,7 +3,7 @@
 
     <div class="main">
       <ons-page>
-        <ons-pull-hook var="loader" ng-action="refresh($done)">
+        <ons-pull-hook var="loader" ng-action="pullToRefresh($done)">
           <span ng-switch="loader.getCurrentState()">
             <span ng-switch-when="initial">
               <ons-icon size="30px" icon="ion-arrow-down-a"></ons-icon>
@@ -22,13 +22,18 @@
 
         <ons-toolbar fixed-style>
           <div class="left">
-            <ons-toolbar-button ng-click="menu.toggleMenu()">
+            <ons-toolbar-button ng-click="menu.toggleMenu()" ng-if="currentChannel">
               <ons-icon icon="ion-navicon" size="32px"></ons-icon>
             </ons-toolbar-button>
           </div>
-          <div class="center">默认频道</div>
+          <div class="center">
+            <span ng-if="currentChannel">{{ currentChannel.get('name') }}</span>
+            <span ng-if="!currentChannel">加载中</span>
+            <span ng-if="!currentChannel" loading-dots></span>
+          </div>
           <div class="right">
-            <ons-toolbar-button ng-if="user.get('tsinghuaAuth')" ng-click="navi.pushPageWithHistory('hole/new.html', { animation: 'fade' })">
+            <ons-toolbar-button ng-if="user.get('tsinghuaAuth') && currentChannel"
+                                ng-click="navi.pushPageWithHistory('hole/new.html', { animation: 'fade', callback: refreshList })">
               <ons-icon icon="ion-android-add" size="32px"></ons-icon>
             </ons-toolbar-button>
           </div>

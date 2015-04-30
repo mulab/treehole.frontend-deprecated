@@ -4,7 +4,7 @@ var Hole = require('models/hole');
 var helper = require('../../helper');
 var _ = require('lodash');
 
-module.exports = function ($scope, $compile) {
+module.exports = function ($scope, $rootScope, $compile) {
   $scope.waitingSubmit = false;
   $scope.images = [];
 
@@ -27,7 +27,7 @@ module.exports = function ($scope, $compile) {
 
     var modalVisible = false;
 
-    Hole.createNewHole($scope.content, null, $scope.images, {
+    Hole.createNewHole($scope.content, $rootScope.currentChannel, $scope.images, {
       onImageUploadStart: function (index) {
         var modalContent = angular.element('<div id="modal-container"><ons-icon icon="ion-load-c" spin="true"></ons-icon><br><br>正在上传第' + (index + 1) + '张图片，共' + ($scope.images.length) + '张</div>');
         $compile(modalContent)($scope);
@@ -50,8 +50,8 @@ module.exports = function ($scope, $compile) {
       if (modalVisible) {
         modal.hide();
       }
-      navi.clearAllPages();
-      navi.pushPageWithHistory('hole/list.html', { animation: 'fade' });
+      navi.getCurrentPage().options.callback();
+      navi.popPageWithHistory({ animation: 'fade' });
     }, function (err) {
       if (modalVisible) {
         modal.hide();
