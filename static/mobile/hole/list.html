@@ -3,7 +3,7 @@
 
     <div class="main">
       <ons-page>
-        <ons-pull-hook var="loader" ng-action="pullToRefresh($done)">
+        <ons-pull-hook var="loader" ng-action="pullToRefresh($done)" ng-if="ready">
           <span ng-switch="loader.getCurrentState()">
             <span ng-switch-when="initial">
               <ons-icon size="30px" icon="ion-arrow-down-a"></ons-icon>
@@ -39,13 +39,8 @@
           </div>
         </ons-toolbar>
 
-        <div class="" ng-if="!ready">
-          <div class="loading-page">
-            <ons-icon icon="fa-spinner" size="60px" spin="true" fixed-width="true"></ons-icon>
-          </div>
-        </div>
+        <div class="hole-list">
 
-        <div class="hole-list" ng-if="ready">
           <ons-list>
             <ons-list-item ng-repeat="hole in holes" modifier="tappable"
                            ng-click="navi.pushPageWithHistory('hole/show.html', { animation: 'fade', holeId: hole.getObjectId() })">
@@ -74,6 +69,9 @@
               </div>
             </ons-list-item>
           </ons-list>
+          <div class="loading-page" ng-if="!ready">
+            <ons-icon icon="fa-spinner" size="60px" spin="true" fixed-width="true"></ons-icon>
+          </div>
         </div>
       </ons-page>
     </div>
