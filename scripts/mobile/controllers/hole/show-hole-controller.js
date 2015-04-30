@@ -10,7 +10,9 @@ module.exports = function ($scope, $rootScope) {
   var currentHold;
 
   function refresh() {
-    $scope.ready = false;
+    $scope.hole = null;
+    $scope.comments = null;
+    $rootScope.showLoadingPage = true;
     var query = new AV.Query(Hole);
     query.include('author');
     query.include('author.avatar');
@@ -31,7 +33,7 @@ module.exports = function ($scope, $rootScope) {
     }).then(function (comments) {
       commentDialogs = {};
       $scope.$apply(function () {
-        $scope.ready = true;
+        $rootScope.showLoadingPage = false;
         $scope.hole = currentHold;
         $scope.comments = comments;
       });

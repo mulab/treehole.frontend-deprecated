@@ -1,7 +1,7 @@
 <ons-page class="left-menu" ng-controller="LeftMenuController">
   <div class="user clearfix">
     <div class="avatar" ng-click="changeAvatar()">
-      <img ng-src="{{ user.get('avatar') ? user.get('avatar').thumbnailURL(64, 64) : '/default-avatar.png' }}">
+      <img ng-src="{{ getAvatarUrl(user, 64) }}">
     </div>
     <div class="name">
       <div class="nickname">

@@ -9,13 +9,7 @@
       <div class="center">详情</div>
     </ons-toolbar>
 
-    <div class="" ng-if="!ready">
-      <div class="loading-page">
-        <ons-icon icon="fa-spinner" size="60px" spin="true" fixed-width="true"></ons-icon>
-      </div>
-    </div>
-
-    <ons-list ng-if="ready">
+    <ons-list ng-if="hole && comments">
       <ons-list-item>
         <div class="main">
           <div class="top-part clearfix">

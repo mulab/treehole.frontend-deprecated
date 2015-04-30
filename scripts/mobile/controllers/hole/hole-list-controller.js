@@ -37,27 +37,27 @@ module.exports = function ($scope, $rootScope, $timeout) {
   }
 
   function refreshList() {
-    $scope.ready = false;
+    $rootScope.showLoadingPage = true;
     retrieveHoles(function () {
-      $scope.$apply(function () {
-        $scope.ready = true;
-      });
+      $rootScope.showLoadingPage = false;
+      $scope.$apply();
     });
   }
 
   $scope.user = AV.User.current();
-  $scope.hole = [];
+  $scope.holes = [];
 
   retrieveChannels(refreshList);
 
   $scope.pullToRefresh = function ($done) {
     $timeout(function () {
       retrieveHoles($done);
-    }, 1000);
+    }, 500);
   };
 
   $scope.switchChannel = function (channel) {
     $rootScope.currentChannel = channel;
+    $scope.holes = [];
     refreshList();
   };
 

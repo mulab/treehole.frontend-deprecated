@@ -20,8 +20,14 @@
 </head>
 
 <body ng-controller="AppController" style="overflow-y: hidden">
-  <ons-navigator var="navi"></ons-navigator>
+  <ons-navigator var="navi" page="blank.html"></ons-navigator>
   <ons-modal var="modal"><div id="modal-container"></div></ons-modal>
+
+  <ons-template id="blank.html"><ons-page></ons-page></ons-template>
+
+  <div class="loading-page" ng-if="showLoadingPage">
+    <ons-icon icon="fa-spinner" size="60px" spin="true" fixed-width="true"></ons-icon>
+  </div>
 
   <!-- Root element of PhotoSwipe. Must have class pswp. -->
   <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
