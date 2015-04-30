@@ -36,19 +36,34 @@ module.exports = function ($scope, $rootScope) {
   refresh();
   $scope.refresh = refresh;
 
-  $scope.showCommentDialog = function () {
-    ons.createDialog('hole/comment-dialog.html', {
-      parentScope: $scope
-    }).then(function (dialog) {
+  var commentDialogs = {};
+
+  $scope.showCommentDialog = function (replyTo) {
+    var key = replyTo ? replyTo.getObjectId() : '';
+
+    function show(dialog) {
       $rootScope.goBackHandler = function () {
-        dialog.destroy();
+        dialog.hide();
       };
-      dialog.on('destroy', function () {
+      dialog.on('prehide', function () {
+        console.log('onprehide');
         $rootScope.goBackHandler = null;
       });
-      $scope.commentDialog = dialog;
+      $scope.currentCommentDialog = dialog;
+      $scope.replyTo = replyTo;
       dialog.show();
-    });
+    }
+
+    if (!commentDialogs[key]) {
+      ons.createDialog('hole/comment-dialog.html', {
+        parentScope: $scope
+      }).then(function (dialog) {
+        commentDialogs[key] = dialog;
+        show(dialog);
+      });
+    } else {
+      show(commentDialogs[key]);
+    }
   };
 
   $scope.showGallery = function (index) {

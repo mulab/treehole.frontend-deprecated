@@ -39,7 +39,7 @@
         </div>
       </ons-list-item>
 
-      <ons-list-item ng-repeat="comment in comments">
+      <ons-list-item ng-repeat="comment in comments" modifier="tappable" ng-click="showCommentDialog(comment)">
         <div class="comment clearfix">
           <div class="avatar">
             <img ng-src="{{ getAvatarUrl(comment.get('author'), 32) }}">
@@ -53,7 +53,10 @@
                 {{ comment.getCreatedAt()|formatTime }}
               </div>
             </div>
-            <div class="content"><p>{{ comment.get('content') }}</p></div>
+            <div class="content"><p>
+              <span ng-if="comment.get('replyTo')">{{ '回复' + comment.get('replyTo').get('author').get('nickname') + ':' }}</span>
+              {{ comment.get('content') }}
+            </p></div>
           </div>
         </div>
       </ons-list-item>

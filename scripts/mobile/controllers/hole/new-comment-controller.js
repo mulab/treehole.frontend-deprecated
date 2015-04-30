@@ -25,12 +25,12 @@ module.exports = function ($scope) {
       return helper.showErrorAlert(errorMessages[0], onProcessingEnd);
     }
 
-    $scope.hole.createComment($scope.commentContent).
+    $scope.hole.createComment($scope.commentContent, $scope.replyTo).
       then(function () {
-        $scope.commentDialog.destroy();
+        $scope.currentCommentDialog.destroy();
         $scope.refresh();
       }, function (err) {
-        $scope.commentDialog.destroy();
+        $scope.currentCommentDialog.destroy();
         helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
       });
   };

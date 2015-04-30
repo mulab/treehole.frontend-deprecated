@@ -6,7 +6,9 @@
       </ons-toolbar>
 
       <div class="main">
-        <textarea class="textarea" ng-model="commentContent"></textarea>
+        <textarea class="textarea" ng-model="commentContent"
+                  placeholder="{{ replyTo ? '回复' + replyTo.get('author').get('nickname') : '' }}">
+        </textarea>
         <div class="buttons">
           <div class="submit-button">
             <ons-button modifier="large--cta" class="submit-button"

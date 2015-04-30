@@ -11,12 +11,15 @@ var Hole = AV.Object.extend('Hole', {
     query.ascending('createdAt');
     query.include('author');
     query.include('author.avatar');
+    query.include('replyTo');
+    query.include('replyTo.author');
     query.equalTo('hole', this);
     return query.find();
   },
-  createComment: function (content) {
+  createComment: function (content, replyTo) {
     return Comment.new({
       content: content,
+      replyTo: replyTo,
       hole: this,
       author: AV.User.current()
     }).save();
