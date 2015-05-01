@@ -27,7 +27,7 @@ module.exports = function ($scope, $rootScope, $compile) {
 
     var modalVisible = false;
 
-    Hole.createNewHole($scope.content, $rootScope.currentChannel, $scope.images, {
+    Hole.createNewHole($scope.content, $rootScope.currentChannel, $scope.images, $scope.anonymous, {
       onImageUploadStart: function (index) {
         var modalContent = angular.element('<div id="modal-container"><ons-icon icon="ion-load-c" spin="true"></ons-icon><br><br>正在上传第' + (index + 1) + '张图片，共' + ($scope.images.length) + '张</div>');
         $compile(modalContent)($scope);

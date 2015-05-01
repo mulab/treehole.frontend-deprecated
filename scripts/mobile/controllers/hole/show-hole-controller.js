@@ -1,13 +1,16 @@
 'use strict';
 
 var Hole = require('models/hole');
+var PseudoUser = require('models/pseudo-user');
+var helper = require('../../helper');
 
 module.exports = function ($scope, $rootScope) {
   var holeId = navi.getCurrentPage().options.holeId;
   $scope.user = AV.User.current();
   var imageArray;
   var commentDialogs = {};
-  var currentHold;
+  var currentHole;
+  var currentPseudoUser;
 
   function refresh() {
     $scope.hole = null;
@@ -28,13 +31,42 @@ module.exports = function ($scope, $rootScope) {
           src: item.get('file').url()
         });
       }
-      currentHold = hole;
-      return hole.fetchComments();
+      currentHole = hole;
+      query = new AV.Query(PseudoUser);
+      query.equalTo('user', AV.User.current());
+      query.equalTo('hole', hole);
+      return query.find();
+    }).then(function (result) {
+      if (result.length > 0) {
+        currentPseudoUser = result[0];
+      }
+      return currentHole.fetchComments();
     }).then(function (comments) {
       commentDialogs = {};
+      var nicknameDict = {};
+      var currentIndex = 0;
+      var i;
+      var objectId;
+
+      if (currentHole.get('anonymous')) {
+        for (i = 0; i < comments.length; i ++) {
+          objectId = comments[i].get('author').getObjectId();
+          if (!comments[i].get('author').get('authorOf')) {
+            if (!nicknameDict[objectId]) {
+              nicknameDict[objectId] = helper.generateAnonymousNickname(currentIndex);
+              currentIndex ++;
+            }
+          } else {
+            nicknameDict[objectId] = '楼主';
+          }
+        }
+      }
+
       $scope.$apply(function () {
         $rootScope.showLoadingPage = false;
-        $scope.hole = currentHold;
+        $scope.hole = currentHole;
+        $scope.currentPseudoUser = currentPseudoUser;
+        $scope.nicknameDict = nicknameDict;
         $scope.comments = comments;
       });
     });

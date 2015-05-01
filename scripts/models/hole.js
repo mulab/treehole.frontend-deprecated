@@ -17,7 +17,10 @@ var Hole = AV.Object.extend('Hole', {
     return query.find();
   }
 }, {
-  createNewHole: function (content, channel, imageFiles, options) {
+  createNewHole: function (content, channel, imageFiles, anonymous, options) {
+    if (_.isUndefined(anonymous)) {
+      anonymous = false;
+    }
     return Bluebird.coroutine(function* () {
       var i;
       var images = [];
@@ -73,7 +76,7 @@ var Hole = AV.Object.extend('Hole', {
         content: content,
         channel: channel,
         images: images,
-        author: AV.User.current()
+        anonymous: anonymous
       });
       yield hole.save();
     })();

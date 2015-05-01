@@ -14,10 +14,12 @@
         <div class="main">
           <div class="top-part clearfix">
             <div class="avatar">
-              <img ng-src="{{ getAvatarUrl(hole.get('author'), 48) }}">
+              <img ng-src="{{ hole.get('anonymous') ? '/assets/default-avatar.png' : getAvatarUrl(hole.get('author'), 48) }}">
             </div>
             <div class="nickname">
-              {{ hole.get('author').get('nickname') }}
+              <span ng-if="!hole.get('anonymous')">{{ hole.get('author').get('nickname') }}</span>
+              <span ng-if="hole.get('anonymous')">匿名用户</span>
+              <span ng-if="hole.get('anonymous') && currentPseudoUser.get('authorOf') && currentPseudoUser.get('authorOf').getObjectId() === hole.getObjectId()">（我）</span>
             </div>
             <div class="publish-time">
               {{ hole.getCreatedAt()|formatTime }}
@@ -42,19 +44,25 @@
       <ons-list-item ng-repeat="comment in comments" modifier="tappable" ng-click="showCommentDialog(comment)">
         <div class="comment clearfix">
           <div class="avatar">
-            <img ng-src="{{ getAvatarUrl(comment.get('author'), 32) }}">
+            <img ng-src="{{ comment.get('anonymous') ? '/assets/default-avatar.png' : getAvatarUrl(comment.get('author'), 32) }}">
           </div>
           <div class="right-part">
             <div class="top-part clearfix">
               <div class="nickname">
-                {{ comment.get('author').get('nickname') }}
+                <span ng-if="!comment.get('anonymous')">{{ comment.get('author').get('nickname') }}</span>
+                <span ng-if="comment.get('anonymous')">
+                  {{ nicknameDict[comment.get('author').getObjectId()] }}
+                </span>
+                <span ng-if="comment.get('anonymous') && currentPseudoUser.getObjectId() === comment.get('author').getObjectId()">（我）</span>
               </div>
               <div class="publish-time">
                 {{ comment.getCreatedAt()|formatTime }}
               </div>
             </div>
             <div class="content"><p>
-              <span ng-if="comment.get('replyTo')">{{ '回复' + comment.get('replyTo').get('author').get('nickname') + ':' }}</span>
+              <span ng-if="comment.get('replyTo')">
+                {{ '回复' + (comment.get('anonymous') ? nicknameDict[comment.get('replyTo').get('author').getObjectId()] : comment.get('replyTo').get('author').get('nickname')) + ':' }}
+              </span>
               {{ comment.get('content') }}
             </p></div>
           </div>

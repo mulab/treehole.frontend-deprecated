@@ -30,3 +30,12 @@ exports.translate = function (message) {
   }
   return message;
 };
+
+exports.generateAnonymousNickname = function (index) {
+  var tianGan = '甲乙丙丁戊己庚辛壬癸';
+  if (index < 10) {
+    return '路人' + tianGan[index];
+  } else {
+    return '路人' + (index + 1);
+  }
+};
