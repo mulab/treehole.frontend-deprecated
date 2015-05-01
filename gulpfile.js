@@ -13,6 +13,8 @@ var concat = require('gulp-concat');
 var uuid = require('node-uuid');
 var replace = require('gulp-replace');
 var merge = require('merge-stream');
+var del = require('del');
+var shell = require('gulp-shell');
 
 function errorHandler(moduleName) {
   return function (err) {
@@ -194,6 +196,12 @@ gulp.task('build', [
   'build-assets',
   'uuid-assets'
 ]);
+
+gulp.task('clean', function (callback) {
+  del('build/**/*', callback);
+});
+
+gulp.task('cloc', shell.task('cloc --exclude-dir=".idea,bower_components,node_modules,build" ./'));
 
 gulp.task('watch', ['build-dev'], function () {
   gulp.watch('./stylesheets/**/*.less', ['build-stylesheets']);
