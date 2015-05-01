@@ -116,7 +116,12 @@ module.exports = function ($scope, $rootScope) {
       AV.User.current().fetch().then(function () {
         $scope.$apply();
       }, function (err) {
-        console.error(err);
+        if (err.message === 'Could not find user') {
+          AV.User.logOut();
+          navi.redirectToIndex();
+        } else {
+          console.error(err);
+        }
       });
     }
 
