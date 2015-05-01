@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 module.exports = function ($scope, $rootScope) {
   ons.ready(function () {
+
     var pageId = 1;
     navi.pushPageWithHistory = function (pageUrl, options) {
       History.pageDict[pageId] = {
@@ -90,7 +91,7 @@ module.exports = function ($scope, $rootScope) {
         } else {
           if (!$rootScope.goBackHandler) {
             for (i = index + 1; i < pages.length; i ++) {
-              navi.popPage({ 'animation': 'slide' });
+              navi.popPage({ 'animation': 'none' });
             }
             if (index === 0) {
               window.location.href = '/mobile';

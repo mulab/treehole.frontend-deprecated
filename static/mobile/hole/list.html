@@ -1,5 +1,5 @@
 <ons-page ng-controller="HoleListController">
-  <ons-sliding-menu var="menu" menu-page="left-menu.html" swipeable max-slide-distance="260px" type="push">
+  <ons-sliding-menu var="menu" menu-page="left-menu.html" max-slide-distance="75%" type="push">
 
     <div class="main">
       <ons-page>
@@ -41,7 +41,7 @@
 
         <div class="hole-list">
           <ons-list>
-            <ons-list-item ng-repeat="hole in holes" modifier="tappable"
+            <ons-list-item ng-repeat="hole in holes"
                            ng-click="navi.pushPageWithHistory('hole/show.html', { animation: 'fade', holeId: hole.getObjectId() })">
               <div class="hole-container clearfix">
                 <div class="avatar">
