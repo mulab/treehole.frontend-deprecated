@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('lodash');
+
 module.exports = function ($scope, $rootScope) {
   ons.ready(function () {
     var pageId = 1;
@@ -13,7 +15,7 @@ module.exports = function ($scope, $rootScope) {
     };
 
     navi.popPageWithHistory = function (options, times) {
-      if (!times) {
+      if (_.isUndefined(times)) {
         times = 1;
       }
       if (times <= 0) {
@@ -29,10 +31,10 @@ module.exports = function ($scope, $rootScope) {
     };
 
     navi.redirectToIndex = function (options) {
-      if (!options) {
+      if (_.isUndefined(options)) {
         options = {};
       }
-      if (!options.animation) {
+      if (_.isUndefined(options.animation)) {
         options.animation = 'fade';
       }
       navi.clearAllPages();
@@ -114,7 +116,7 @@ module.exports = function ($scope, $rootScope) {
 
     if (AV.User.current()) {
       AV.User.current().fetch().then(function () {
-        $scope.$apply();
+        navi.redirectToIndex({ animation: 'none' });
       }, function (err) {
         if (err.message === 'Could not find user') {
           AV.User.logOut();
@@ -123,8 +125,8 @@ module.exports = function ($scope, $rootScope) {
           console.error(err);
         }
       });
+    } else {
+      navi.redirectToIndex({ animation: 'none' });
     }
-
-    navi.redirectToIndex({ animation: 'none' });
   });
 };

@@ -52,6 +52,9 @@ module.exports = function ($scope, $rootScope) {
       dialog.on('prehide', function () {
         $rootScope.goBackHandler = null;
       });
+      dialog.on('destroy', function () {
+        $rootScope.goBackHandler = null;
+      });
       $scope.currentCommentDialog = dialog;
       $scope.replyTo = replyTo;
       dialog.show();

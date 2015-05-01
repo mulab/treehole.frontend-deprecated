@@ -62,10 +62,10 @@
       </ons-list-item>
     </ons-list>
 
-    <ons-bottom-toolbar ng-if="hole && comments && user.get('tsinghuaAuth')">
+    <ons-bottom-toolbar ng-if="user.get('tsinghuaAuth')">
       <div class="bottom-toolbar">
         <div class="center">
-          <ons-button modifier="quiet" ng-click="showCommentDialog()">评论</ons-button>
+          <ons-button modifier="quiet" ng-disabled="!hole || !comments" ng-click="showCommentDialog()">评论</ons-button>
         </div>
       </div>
     </ons-bottom-toolbar>
