@@ -3,6 +3,7 @@
 var Hole = require('models/hole');
 var PseudoUser = require('models/pseudo-user');
 var helper = require('../../helper');
+var _ = require('lodash');
 
 module.exports = function ($scope, $rootScope) {
   var holeId = navi.getCurrentPage().options.holeId;
@@ -16,7 +17,10 @@ module.exports = function ($scope, $rootScope) {
   var listRefreshCallback = navi.getCurrentPage().options.callback;
 
   function refresh() {
-    listRefreshCallback();
+    if (_.isFunction(listRefreshCallback)) {
+      listRefreshCallback();
+    }
+
     $scope.hole = null;
     $scope.comments = null;
     $rootScope.showLoadingPage = true;
@@ -159,7 +163,9 @@ module.exports = function ($scope, $rootScope) {
         $scope.likeStat.includeMe = true;
       }
       $scope.waitingLike = false;
-      listRefreshCallback();
+      if (_.isFunction(listRefreshCallback)) {
+        listRefreshCallback();
+      }
     });
   };
 };
