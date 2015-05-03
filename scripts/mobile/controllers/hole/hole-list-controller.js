@@ -61,6 +61,15 @@ module.exports = function ($scope, $rootScope, $timeout) {
   retrieveChannels(refreshList);
   checkNotification();
 
+  var push = AV.push({ appId: CONFIG.appId,  appKey: CONFIG.appKey });
+  push.open();
+  push.subscribe('notification_' + AV.User.current().getObjectId());
+  push.on('message', function (data) {
+    if (data._channel === 'notification_' + AV.User.current().getObjectId() && data.action === 'checkNotification') {
+      checkNotification();
+    }
+  });
+
   $scope.pullToRefresh = function ($done) {
     $timeout(function () {
       retrieveHoles($done);

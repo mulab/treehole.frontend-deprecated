@@ -7,12 +7,6 @@ var _ = require('lodash');
 module.exports = function ($scope) {
   $scope.waitingSubmit = false;
 
-  function onProcessingEnd() {
-    $scope.$apply(function () {
-      $scope.waitingSubmit = false;
-    });
-  }
-
   $scope.submitComment = function () {
     var comment = $scope.commentContent;
     $scope.waitingSubmit = true;
