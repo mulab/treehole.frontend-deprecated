@@ -1,6 +1,6 @@
 <ons-page class="left-menu" ng-controller="LeftMenuController">
   <div class="user clearfix">
-    <div class="avatar" ng-click="changeAvatar()">
+    <div class="avatar" ng-click="navi.pushPageWithHistory('user/upload-avatar.html', { animation: 'fade' });">
       <img ng-src="{{ getAvatarUrl(user, 64) }}">
     </div>
     <div class="name">
@@ -15,7 +15,7 @@
   </div>
 
   <ons-list class="menu-list">
-    <ons-list-item class="menu-item" ng-repeat="channel in channels" ng-click="menu.close(); switchChannel(channel);">
+    <ons-list-item class="menu-item" ng-repeat="channel in channels" ng-click="menu.closeMenu(); switchChannel(channel);">
       <ons-icon icon="fa-circle" size="16px" ng-if="currentChannel === channel"></ons-icon>
       <ons-icon icon="fa-circle-o" size="16px" ng-if="currentChannel !== channel"></ons-icon>
       {{ channel.get('name') }}
@@ -28,6 +28,12 @@
     <ons-list-item class="bottom-menu-item" ng-if="!user.get('tsinghuaAuth')"
                    ng-click="navi.pushPageWithHistory('user/auth.html', { animation: 'fade' });">
       进行清华认证
+      <ons-icon icon="fa-circle" size="8px" style="color: #dc5236; position: relative; bottom: 8px;"></ons-icon>
+    </ons-list-item>
+    <ons-list-item class="bottom-menu-item"
+                   ng-click="menu.closeMenu(); navi.pushPageWithHistory('user/notification.html', { animation: 'fade', callback: checkNotification });">
+      消息中心
+      <ons-icon ng-if="hasNotification" icon="fa-circle" size="8px" style="color: #dc5236; position: relative; bottom: 8px;"></ons-icon>
     </ons-list-item>
     <ons-list-item class="bottom-menu-item" ng-click="logout()">
       登出

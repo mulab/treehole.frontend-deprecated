@@ -1,0 +1,55 @@
+<ons-page>
+  <div class="notification-list" ng-controller="NotificationController">
+    <ons-toolbar fixed-style>
+      <div class="left">
+        <ons-toolbar-button ng-click="navi.getCurrentPage().options.callback(); navi.popPageWithHistory({ 'animation': 'slide' });">
+          <ons-icon style="margin-left: 5px;" icon="ion-ios-arrow-back" size="32px"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">消息中心</div>
+    </ons-toolbar>
+
+    <ons-list>
+      <ons-list-item modifier="tappable" ng-repeat="notification in notifications" ng-click="toggle(notification)" class="notification-entry">
+        <div ng-switch="notification.get('type')">
+          <div ng-switch-when="replyToCommentAuthor" class="reply-to-comment clearfix">
+            <div class="avatar">
+              <img ng-src="{{ notification.get('attachedComment').get('anonymous') ? '/assets/default-avatar.png' : getAvatarUrl(notification.get('attachedComment').get('author'), 48) }}">
+            </div>
+            <div class="right-part">
+              <p>
+                <span ng-if="!notification.get('attachedComment').get('anonymous')">
+                  {{ notification.get('attachedComment').get('author').get('nickname') }}
+                </span>
+                <span ng-if="notification.get('attachedComment').get('anonymous')">
+                  {{ notification.get('attachedComment').get('author').get('authorOf') ? '楼主' : '匿名用户' }}
+                </span>
+                <span>回复了你的评论</span>
+                <span>{{ '“' + notification.get('attachedComment').get('replyTo').get('content') + '”' }}</span>
+              </p>
+            </div>
+          </div>
+
+          <div ng-switch-when="replyToHoleAuthor" class="reply-to-hole clearfix">
+            <div class="avatar">
+              <img ng-src="{{ notification.get('attachedComment').get('anonymous') ? '/assets/default-avatar.png' : getAvatarUrl(notification.get('attachedComment').get('author'), 48) }}">
+            </div>
+            <div class="right-part">
+              <p>
+                <span ng-if="!notification.get('attachedComment').get('anonymous')">
+                  {{ notification.get('attachedComment').get('author').get('nickname') }}
+                </span>
+                <span ng-if="notification.get('attachedComment').get('anonymous')">
+                  匿名用户
+                </span>
+                <span>回复了你的树洞</span>
+                <span>{{ '“' + notification.get('attachedComment').get('hole').get('content') + '”' }}</span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </ons-list-item>
+    </ons-list>
+  </div>
+</ons-page>

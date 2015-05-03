@@ -2,6 +2,7 @@
 
 var Hole = require('models/hole');
 var Channel = require('models/channel');
+var Notification = require('models/Notification');
 var _ = require('lodash');
 
 module.exports = function ($scope, $rootScope, $timeout) {
@@ -36,6 +37,16 @@ module.exports = function ($scope, $rootScope, $timeout) {
     });
   }
 
+  function checkNotification() {
+    var query = new AV.Query(Notification);
+    query.equalTo('toUser', AV.User.current());
+    query.count().then(function (count) {
+      $scope.$apply(function () {
+        $scope.hasNotification = count > 0;
+      });
+    });
+  }
+
   function refreshList() {
     $rootScope.showLoadingPage = true;
     retrieveHoles(function () {
@@ -48,6 +59,7 @@ module.exports = function ($scope, $rootScope, $timeout) {
   $scope.holes = [];
 
   retrieveChannels(refreshList);
+  checkNotification();
 
   $scope.pullToRefresh = function ($done) {
     $timeout(function () {
@@ -62,4 +74,5 @@ module.exports = function ($scope, $rootScope, $timeout) {
   };
 
   $scope.refreshList = refreshList;
+  $scope.checkNotification = checkNotification;
 };
