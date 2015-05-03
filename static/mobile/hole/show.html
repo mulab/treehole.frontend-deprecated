@@ -28,14 +28,14 @@
           <div class="content"><p>{{ hole.get('content') }}</p></div>
           <div class="images" ng-if="hole.get('images') && hole.get('images').length > 1">
             <div class="images-container">
-              <div class="image" ng-repeat="image in hole.get('images')" ng-click="showGallery($index)">
-                <img ng-src="{{ image.get('file').thumbnailURL(300, 300, 100, false) }}">
+              <div class="image" ng-repeat="image in hole.get('images')">
+                <img ng-src="{{ image.get('file').thumbnailURL(300, 300, 100, false) }}" ng-click="helper.showGallery(hole, $index)">
               </div>
             </div>
           </div>
           <div class="individual-image" ng-if="hole.get('images') && hole.get('images').length === 1">
-            <div class="image" ng-click="showGallery(0)">
-              <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(500, 500) }}">
+            <div class="image">
+              <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(500, 500) }}" ng-click="helper.showGallery(hole, 0)">
             </div>
           </div>
           <div class="bottom-part clearfix">

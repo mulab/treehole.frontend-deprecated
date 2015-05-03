@@ -8,7 +8,6 @@ var _ = require('lodash');
 module.exports = function ($scope, $rootScope) {
   var holeId = navi.getCurrentPage().options.holeId;
   $scope.user = AV.User.current();
-  var imageArray;
   var commentDialogs = {};
   var currentHole;
   var likeStat;
@@ -29,16 +28,6 @@ module.exports = function ($scope, $rootScope) {
     query.include('author.avatar');
     query.include('images');
     query.get(holeId).then(function (hole) {
-      imageArray = [];
-      var i;
-      for (i = 0; i < hole.get('images').length; i ++) {
-        var item = hole.get('images')[i];
-        imageArray.push({
-          w: item.get('width'),
-          h: item.get('height'),
-          src: item.get('file').url()
-        });
-      }
       currentHole = hole;
       return AV.Cloud.run('retrieveHoleLikeStat', {
         holeIds: [holeId]
@@ -88,8 +77,6 @@ module.exports = function ($scope, $rootScope) {
   refresh();
   $scope.refresh = refresh;
 
-
-
   $scope.showCommentDialog = function (replyTo) {
     var key = replyTo ? replyTo.getObjectId() : '';
 
@@ -119,31 +106,6 @@ module.exports = function ($scope, $rootScope) {
     } else {
       show(commentDialogs[key]);
     }
-  };
-
-  $scope.showGallery = function (index) {
-    var pswpElement = document.querySelectorAll('.pswp')[0];
-    var options = {
-      index: index,
-      history: false,
-      captionEl: false,
-      fullscreenEl: false,
-      pinchToClose: false,
-      closeOnScroll: false,
-      closeOnVerticalDrag: false,
-      shareEl: false,
-      isClickableElement: function(el) {
-        return el.tagName === 'A' || el.tagName === 'IMG';
-      }
-    };
-    var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, imageArray, options);
-    navi.setGoBackHandler(function () {
-      gallery.close();
-    });
-    gallery.listen('destroy', function () {
-      navi.removeGoBackHandler();
-    });
-    gallery.init();
   };
 
   $scope.waitingLike = false;

@@ -56,13 +56,15 @@
                   <div class="images" ng-if="hole.get('images') && hole.get('images').length > 1">
                     <div class="images-container">
                       <div class="image" ng-repeat="image in hole.get('images')">
-                        <img ng-src="{{ image.get('file').thumbnailURL(300, 300, 100, false) }}">
+                        <img ng-src="{{ image.get('file').thumbnailURL(300, 300, 100, false) }}"
+                             ng-click="helper.showGallery(hole, $index); $event.stopPropagation();">
                       </div>
                     </div>
                   </div>
                   <div class="individual-image" ng-if="hole.get('images') && hole.get('images').length === 1">
                     <div class="image">
-                      <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(500, 500) }}">
+                      <img ng-click="helper.showGallery(hole, 0); $event.stopPropagation();"
+                           ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(500, 500) }}">
                     </div>
                   </div>
                   <div class="bottom-part clearfix">
