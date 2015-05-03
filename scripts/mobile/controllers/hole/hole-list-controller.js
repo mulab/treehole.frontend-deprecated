@@ -30,7 +30,16 @@ module.exports = function ($scope, $rootScope, $timeout) {
     query.include('author.avatar');
     query.include('images');
     query.equalTo('channel', $rootScope.currentChannel);
-    query.find().then(function (holes) {
+    var holes;
+    query.find().then(function (result) {
+      holes = result;
+      return AV.Cloud.run('retrieveHoleLikeStat', {
+        holeIds: _.map(holes, function (hole) {
+          return hole.getObjectId();
+        })
+      });
+    }).then(function (stat) {
+      $scope.likeStat = stat;
       $scope.holes = holes;
       if (_.isFunction(callback)) {
         callback();
@@ -81,6 +90,45 @@ module.exports = function ($scope, $rootScope, $timeout) {
     $rootScope.currentChannel = channel;
     $scope.holes = [];
     refreshList();
+  };
+
+  $scope.waitingLike = false;
+  $scope.toggleLike = function (hole, index) {
+    if ($scope.waitingLike) {
+      return;
+    }
+    $scope.waitingLike = true;
+    AV.Cloud.run($scope.likeStat[index].includeMe ? 'holeUnlike' : 'holeLike', {
+      holeId: hole.getObjectId()
+    }).then(function () {
+      if ($scope.likeStat[index].includeMe) {
+        $scope.likeStat[index].count --;
+        $scope.likeStat[index].includeMe = false;
+      } else {
+        $scope.likeStat[index].count ++;
+        $scope.likeStat[index].includeMe = true;
+      }
+      $scope.waitingLike = false;
+    });
+  };
+
+  $scope.refreshStat = function (index) {
+    return function () {
+      var query = new AV.Query(Hole);
+      query.include('author');
+      query.include('author.avatar');
+      query.include('images');
+      var hole;
+      query.get($scope.holes[index].getObjectId()).then(function (result) {
+        hole = result;
+        return AV.Cloud.run('retrieveHoleLikeStat', { holeIds: [hole.getObjectId()] });
+      }).then(function (result) {
+        $scope.$apply(function () {
+          $scope.holes[index] = hole;
+          $scope.likeStat[index] = result[0];
+        });
+      });
+    };
   };
 
   $scope.refreshList = refreshList;

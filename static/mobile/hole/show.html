@@ -38,6 +38,19 @@
               <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(500, 500) }}">
             </div>
           </div>
+          <div class="bottom-part clearfix">
+            <div class="like-and-comment" ng-click="toggleLike()">
+              <div class="like-count">
+                <ons-icon ng-if="!likeStat.includeMe" size="16px" icon="fa-thumbs-o-up"></ons-icon>
+                <ons-icon ng-if="likeStat.includeMe" size="16px" icon="fa-thumbs-up"></ons-icon>
+                <span>{{ likeStat.count }}</span>
+              </div>
+              <div class="comment-count">
+                <ons-icon size="16px" icon="fa-comments-o"></ons-icon>
+                <span>{{ hole.get('commentCount') }}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </ons-list-item>
 

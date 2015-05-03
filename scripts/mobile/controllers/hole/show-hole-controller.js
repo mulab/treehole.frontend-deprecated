@@ -10,9 +10,13 @@ module.exports = function ($scope, $rootScope) {
   var imageArray;
   var commentDialogs = {};
   var currentHole;
+  var likeStat;
   var currentPseudoUser;
 
+  var listRefreshCallback = navi.getCurrentPage().options.callback;
+
   function refresh() {
+    listRefreshCallback();
     $scope.hole = null;
     $scope.comments = null;
     $rootScope.showLoadingPage = true;
@@ -32,9 +36,14 @@ module.exports = function ($scope, $rootScope) {
         });
       }
       currentHole = hole;
+      return AV.Cloud.run('retrieveHoleLikeStat', {
+        holeIds: [holeId]
+      });
+    }).then(function (result) {
+      likeStat = result[0];
       query = new AV.Query(PseudoUser);
       query.equalTo('user', AV.User.current());
-      query.equalTo('hole', hole);
+      query.equalTo('hole', currentHole);
       return query.find();
     }).then(function (result) {
       if (result.length > 0) {
@@ -65,6 +74,7 @@ module.exports = function ($scope, $rootScope) {
       $scope.$apply(function () {
         $rootScope.showLoadingPage = false;
         $scope.hole = currentHole;
+        $scope.likeStat = likeStat;
         $scope.currentPseudoUser = currentPseudoUser;
         $scope.nicknameDict = nicknameDict;
         $scope.comments = comments;
@@ -73,6 +83,8 @@ module.exports = function ($scope, $rootScope) {
   }
   refresh();
   $scope.refresh = refresh;
+
+
 
   $scope.showCommentDialog = function (replyTo) {
     var key = replyTo ? replyTo.getObjectId() : '';
@@ -128,5 +140,26 @@ module.exports = function ($scope, $rootScope) {
       navi.removeGoBackHandler();
     });
     gallery.init();
+  };
+
+  $scope.waitingLike = false;
+  $scope.toggleLike = function () {
+    if ($scope.waitingLike) {
+      return;
+    }
+    $scope.waitingLike = true;
+    AV.Cloud.run($scope.likeStat.includeMe ? 'holeUnlike' : 'holeLike', {
+      holeId: currentHole.getObjectId()
+    }).then(function () {
+      if ($scope.likeStat.includeMe) {
+        $scope.likeStat.count --;
+        $scope.likeStat.includeMe = false;
+      } else {
+        $scope.likeStat.count ++;
+        $scope.likeStat.includeMe = true;
+      }
+      $scope.waitingLike = false;
+      listRefreshCallback();
+    });
   };
 };

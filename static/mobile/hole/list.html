@@ -45,7 +45,7 @@
         <div class="hole-list">
           <ons-list>
             <ons-list-item ng-repeat="hole in holes"
-                           ng-click="navi.pushPageWithHistory('hole/show.html', { animation: 'fade', holeId: hole.getObjectId() })">
+                           ng-click="navi.pushPageWithHistory('hole/show.html', { animation: 'fade', holeId: hole.getObjectId(), callback: refreshStat($index) })">
               <div class="hole-container clearfix">
                 <div class="avatar">
                   <img ng-src="{{ helper.getAnonymousAvatar(hole, 48) }}">
@@ -53,7 +53,6 @@
                 <div class="right-part">
                   <div class="nickname">{{ hole.get('anonymous') ? '匿名用户' : hole.get('author').get('nickname') }}</div>
                   <div class="content"><p>{{ hole.get('content') }}</p></div>
-
                   <div class="images" ng-if="hole.get('images') && hole.get('images').length > 1">
                     <div class="images-container">
                       <div class="image" ng-repeat="image in hole.get('images')">
@@ -66,7 +65,20 @@
                       <img ng-src="{{ hole.get('images')[0].get('file').thumbnailURL(500, 500) }}">
                     </div>
                   </div>
-                  <div class="publish-time">{{ hole.getCreatedAt()|formatTime }}</div>
+                  <div class="bottom-part clearfix">
+                    <div class="like-and-comment">
+                      <div class="like include-me" ng-click="toggleLike(hole, $index); $event.stopPropagation();">
+                        <ons-icon ng-if="!likeStat[$index].includeMe" size="16px" icon="fa-thumbs-o-up"></ons-icon>
+                        <ons-icon ng-if="likeStat[$index].includeMe" size="16px" icon="fa-thumbs-up"></ons-icon>
+                        <span>{{ likeStat[$index].count }}</span>
+                      </div>
+                      <div class="comment">
+                        <ons-icon size="16px" icon="fa-comments-o"></ons-icon>
+                        <span>{{ hole.get('commentCount') }}</span>
+                      </div>
+                    </div>
+                    <div class="publish-time">{{ hole.getCreatedAt()|formatTime }}</div>
+                  </div>
                 </div>
               </div>
             </ons-list-item>
