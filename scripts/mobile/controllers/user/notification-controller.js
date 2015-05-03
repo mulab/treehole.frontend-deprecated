@@ -35,4 +35,9 @@ module.exports = function ($scope, $rootScope) {
       default:
     }
   };
+
+  var destroyCallback = navi.getCurrentPage().options.callback;
+  $scope.$on('$destroy', function () {
+    destroyCallback();
+  });
 };

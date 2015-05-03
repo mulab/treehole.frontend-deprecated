@@ -3,6 +3,7 @@
 var Hole = require('models/hole');
 var Channel = require('models/channel');
 var Notification = require('models/Notification');
+var pushService = require('../../push-service');
 var _ = require('lodash');
 
 module.exports = function ($scope, $rootScope, $timeout) {
@@ -61,13 +62,13 @@ module.exports = function ($scope, $rootScope, $timeout) {
   retrieveChannels(refreshList);
   checkNotification();
 
-  var push = AV.push({ appId: CONFIG.appId,  appKey: CONFIG.appKey });
-  push.open();
-  push.subscribe('notification_' + AV.User.current().getObjectId());
-  push.on('message', function (data) {
-    if (data._channel === 'notification_' + AV.User.current().getObjectId() && data.action === 'checkNotification') {
+  var subscriberToken = pushService.subscribe('notification_' + AV.User.current().getObjectId(), function (data) {
+    if (data.action === 'checkNotification') {
       checkNotification();
     }
+  });
+  $scope.$on('$destroy', function () {
+    pushService.unsubscribe(subscriberToken);
   });
 
   $scope.pullToRefresh = function ($done) {
