@@ -14,7 +14,7 @@
         <div ng-switch="notification.get('type')">
           <div ng-switch-when="replyToCommentAuthor" class="reply-to-comment clearfix">
             <div class="avatar">
-              <img ng-src="{{ notification.get('attachedComment').get('anonymous') ? '/assets/default-avatar.png' : getAvatarUrl(notification.get('attachedComment').get('author'), 48) }}">
+              <img ng-src="{{ helper.getAnonymousAvatar(notification.get('attachedComment'), 48) }}">
             </div>
             <div class="right-part">
               <p>
@@ -32,7 +32,7 @@
 
           <div ng-switch-when="replyToHoleAuthor" class="reply-to-hole clearfix">
             <div class="avatar">
-              <img ng-src="{{ notification.get('attachedComment').get('anonymous') ? '/assets/default-avatar.png' : getAvatarUrl(notification.get('attachedComment').get('author'), 48) }}">
+              <img ng-src="{{ helper.getAnonymousAvatar(notification.get('attachedComment'), 48) }}">
             </div>
             <div class="right-part">
               <p>

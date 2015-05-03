@@ -53,7 +53,7 @@ module.exports = function ($scope) {
     if ($scope.waitingLoading || $scope.waitingSubmit) {
       return;
     }
-    navi.clearAllPages();
+    navi.helper.clearAllPages();
     navi.pushPageWithHistory('user/auth.html', { animation: 'fade', afterRegister: true });
   };
 };

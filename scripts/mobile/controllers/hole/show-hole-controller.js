@@ -78,14 +78,14 @@ module.exports = function ($scope, $rootScope) {
     var key = replyTo ? replyTo.getObjectId() : '';
 
     function show(dialog) {
-      $rootScope.goBackHandler = function () {
+      navi.setGoBackHandler(function () {
         dialog.hide();
-      };
+      });
       dialog.on('prehide', function () {
-        $rootScope.goBackHandler = null;
+        navi.removeGoBackHandler();
       });
       dialog.on('destroy', function () {
-        $rootScope.goBackHandler = null;
+        navi.removeGoBackHandler();
       });
       $scope.currentCommentDialog = dialog;
       $scope.replyTo = replyTo;
@@ -120,11 +120,11 @@ module.exports = function ($scope, $rootScope) {
       }
     };
     var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, imageArray, options);
-    $rootScope.goBackHandler = function () {
+    navi.setGoBackHandler(function () {
       gallery.close();
-    };
+    });
     gallery.listen('destroy', function () {
-      $rootScope.goBackHandler = null;
+      navi.removeGoBackHandler();
     });
     gallery.init();
   };

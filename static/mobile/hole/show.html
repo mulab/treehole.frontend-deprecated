@@ -14,7 +14,7 @@
         <div class="main">
           <div class="top-part clearfix">
             <div class="avatar">
-              <img ng-src="{{ hole.get('anonymous') ? '/assets/default-avatar.png' : getAvatarUrl(hole.get('author'), 48) }}">
+              <img ng-src="{{ helper.getAnonymousAvatar(hole, 48) }}">
             </div>
             <div class="nickname">
               <span ng-if="!hole.get('anonymous')">{{ hole.get('author').get('nickname') }}</span>
@@ -44,7 +44,7 @@
       <ons-list-item ng-repeat="comment in comments" modifier="tappable" ng-click="showCommentDialog(comment)">
         <div class="comment clearfix">
           <div class="avatar">
-            <img ng-src="{{ comment.get('anonymous') ? '/assets/default-avatar.png' : getAvatarUrl(comment.get('author'), 32) }}">
+            <img ng-src="{{ helper.getAnonymousAvatar(comment, 32) }}">
           </div>
           <div class="right-part">
             <div class="top-part clearfix">

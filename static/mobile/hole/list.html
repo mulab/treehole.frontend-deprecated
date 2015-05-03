@@ -48,7 +48,7 @@
                            ng-click="navi.pushPageWithHistory('hole/show.html', { animation: 'fade', holeId: hole.getObjectId() })">
               <div class="hole-container clearfix">
                 <div class="avatar">
-                  <img ng-src="{{ hole.get('anonymous') ? '/assets/default-avatar.png' : getAvatarUrl(hole.get('author'), 48) }}">
+                  <img ng-src="{{ helper.getAnonymousAvatar(hole, 48) }}">
                 </div>
                 <div class="right-part">
                   <div class="nickname">{{ hole.get('anonymous') ? '匿名用户' : hole.get('author').get('nickname') }}</div>

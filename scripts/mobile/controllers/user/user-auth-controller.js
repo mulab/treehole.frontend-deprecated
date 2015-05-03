@@ -58,6 +58,6 @@ module.exports = function ($scope) {
     if ($scope.waitingSubmit) {
       return;
     }
-    navi.redirectToIndex({ animation: 'fade' });
+    navi.helper.redirectToIndex({ animation: 'fade' });
   };
 };

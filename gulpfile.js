@@ -12,7 +12,8 @@ var webserver = require('gulp-webserver');
 var concat = require('gulp-concat');
 var uuid = require('node-uuid');
 var replace = require('gulp-replace');
-var merge = require('merge-stream');
+var merge2 = require('merge2');
+var gulpSequence = require('gulp-sequence');
 var del = require('del');
 var shell = require('gulp-shell');
 
@@ -170,20 +171,28 @@ gulp.task('copy-static', function () {
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('uuid-assets', ['build-assets'], function () {
+gulp.task('uuid-assets', function () {
   var rev = uuid.v1();
+  console.log('Reversion UUID is ' + rev);
 
-  var copyAssets = gulp.src(['./build/assets/**/*'])
+  var copyAssets = gulp.src(['./build/assets/**/*', '!./build/assets/config.js'])
     .pipe(gulp.dest('./build/assets-' + rev));
 
-  var replaceMainIndex = gulp.src(['./static/index.html'])
-    .pipe(replace('/assets/', '/assets-' + rev + '/'))
+  var replaceMainIndex = gulp.src(['./build/index.html'])
+    .pipe(replace(/\/assets(-[a-z0-9-]+)?\//g, '/assets-' + rev + '/'))
     .pipe(gulp.dest('./build'));
-  var replaceMobileIndex = gulp.src(['./static/mobile/index.html'])
-    .pipe(replace('/assets/', '/assets-' + rev + '/'))
+  var replaceMobileIndex = gulp.src(['./build/mobile/index.html'])
+    .pipe(replace(/\/assets(-[a-z0-9-]+)?\//g, '/assets-' + rev + '/'))
     .pipe(gulp.dest('./build/mobile'));
+  var replaceConfig = gulp.src(['./build/assets/config.js'])
+    .pipe(replace(/\/assets(-[a-z0-9-]+)?\//g, '/assets-' + rev + '/'))
+    .pipe(gulp.dest('./build/assets-' + rev));
 
-  return merge(copyAssets, replaceMainIndex, replaceMobileIndex);
+  return merge2(copyAssets, [replaceMainIndex, replaceMobileIndex, replaceConfig]);
+});
+
+gulp.task('cleanup-assets', function (callback) {
+  del('build/assets', callback);
 });
 
 gulp.task('build-dev', [
@@ -191,14 +200,14 @@ gulp.task('build-dev', [
   'build-assets-dev'
 ]);
 
-gulp.task('build', [
-  'copy-static',
-  'build-assets',
-  'uuid-assets'
-]);
+gulp.task('build', gulpSequence(
+  ['copy-static', 'build-assets'],
+  'uuid-assets',
+  'cleanup-assets'
+));
 
 gulp.task('clean', function (callback) {
-  del('build/**/*', callback);
+  del('build', callback);
 });
 
 gulp.task('cloc', shell.task('cloc --exclude-dir=".idea,bower_components,node_modules,build" ./'));
@@ -213,8 +222,10 @@ gulp.task('watch', ['build-dev'], function () {
 });
 
 gulp.task('serve', function () {
+  var logger = require('morgan');
   gulp.src('build').
     pipe(webserver({
-      host: '0.0.0.0'
+      host: '0.0.0.0',
+      middleware: logger('combined')
     }));
 });

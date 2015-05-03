@@ -30,7 +30,7 @@ module.exports = function ($scope) {
 
     AV.User.logIn(username, password).
       then(function () {
-        navi.redirectToIndex();
+        navi.helper.redirectToIndex();
       }, function (err) {
         helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
       });

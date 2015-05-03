@@ -50,7 +50,7 @@ module.exports = function ($scope) {
 
     AV.User.signUp(username, password, { nickname: nickname }).
       then(function () {
-        navi.clearAllPages();
+        navi.helper.clearAllPages();
         navi.pushPageWithHistory('user/upload-avatar.html', { animation: 'fade', afterRegister: true });
       }, function (err) {
         helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
