@@ -22,8 +22,8 @@ module.exports = function ($scope) {
    }
 
     if (!_.isEmpty(errorMessages)) {
-      $scope.commentDialog.destroy();
-      return helper.showErrorAlert(errorMessages[0], onProcessingEnd);
+      $scope.currentCommentDialog.destroy();
+      return helper.showErrorAlert(errorMessages[0]);
     }
 
     Comment.new({
@@ -36,7 +36,7 @@ module.exports = function ($scope) {
       $scope.refresh();
     }, function (err) {
       $scope.currentCommentDialog.destroy();
-      helper.showErrorAlert(helper.translate(err.message), onProcessingEnd);
+      helper.showErrorAlert(helper.translate(err.message));
     });
   };
 };

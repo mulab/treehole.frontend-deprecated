@@ -85,6 +85,7 @@ module.exports = function ($scope, $rootScope) {
         navi.removeGoBackHandler();
       });
       dialog.on('destroy', function () {
+        commentDialogs[key] = null;
         navi.removeGoBackHandler();
       });
       $scope.currentCommentDialog = dialog;
