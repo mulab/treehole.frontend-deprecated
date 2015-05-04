@@ -1,0 +1,84 @@
+<ons-page>
+  <div class="info-manage">
+    <ons-toolbar fixed-style>
+      <div class="left">
+        <div ng-if="!afterRegister">
+          <ons-toolbar-button ng-click="navi.popPageWithHistory({ 'animation': 'fade' })">
+            <ons-icon style="margin-left: 5px;" icon="ion-ios-arrow-back" size="32px"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </div>
+      <div class="center">管理中心</div>
+    </ons-toolbar>
+
+    <ons-list ng-controller="SettingsController" class="choices">
+        <ons-list-header style="padding-top:10px;padding-bottom:10px">个人信息</ons-list-header>
+        <ons-list-item ng-click="show('password.html')" modifier="chevron" class="choice">
+          修改密码
+        </ons-list-item>
+        <ons-list-item ng-click="show('nickname.html')" modifier="chevron" class="choice">
+          修改昵称
+        </ons-list-item>
+        <ons-list-item ng-click="navi.pushPageWithHistory('user/upload-avatar.html', { animation: 'fade' });" modifier="chevron" class="choice">
+          修改头像
+        </ons-list-item>
+    </ons-list>
+</ons-page>
+
+<ons-template id="password.html" >
+  <ons-dialog var="dialog" cancelable ng-controller="SettingsController">
+
+      <ons-toolbar inline>
+        <div class="center">
+          修改密码
+        </div>
+      </ons-toolbar>
+    
+      <p>
+        <input type="password" ng-model="oldPassword" class="text-input--underbar width-full" placeholder="旧密码">
+      </p>
+    
+      <p>
+        <input type="password" ng-model="password" class="text-input--underbar width-full" placeholder="新密码">
+      </p>
+    
+      <p>
+        <input type="password" ng-model="passwordConfirm" class="text-input--underbar width-full" placeholder="密码确认">
+      </p>
+    
+      <p>
+        <ons-button ng-click="passwordChange();dialog.hide();" modifier="large--cta" ng-disabled="waitingSubmit">
+          <span ng-if="!waitingSubmit">提交</span>
+          <span ng-if="waitingSubmit">提交中</span>
+          <span ng-if="waitingSubmit" loading-dots></span>
+        </ons-button>
+      </p>
+
+  </ons-dialog> 
+</ons-template>
+
+<ons-template id="nickname.html" >
+  <ons-dialog var="dialog" cancelable ng-controller="SettingsController">
+
+      <ons-toolbar inline>
+        <div class="center">
+          修改昵称
+        </div>
+      </ons-toolbar>
+    
+      <p>
+        <input type="text" placeholder="新昵称" class="text-input--underbar width-full" ng-model="nickname">
+      </p>
+    
+      <p>
+        <ons-button ng-click="nicknameChange();dialog.hide();" modifier="large--cta" ng-disabled="waitingSubmit">
+          <span ng-if="!waitingSubmit">提交</span>
+          <span ng-if="waitingSubmit">提交中</span>
+          <span ng-if="waitingSubmit" loading-dots></span>
+        </ons-button>
+      </p>
+
+  </ons-dialog> 
+</ons-template>
+
+    
