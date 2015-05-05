@@ -31,7 +31,7 @@
       <ons-icon icon="fa-circle" size="8px" style="color: #dc5236; position: relative; bottom: 8px;"></ons-icon>
     </ons-list-item>
     <ons-list-item class="bottom-menu-item"
-                   ng-click="menu.closeMenu(); navi.pushPageWithHistory('user/notification.html', { animation: 'fade', callback: checkNotification });">
+                   ng-click="menu.closeMenu({ animation: 'none' }); navi.pushPageWithHistory('user/notification.html', { animation: 'fade', callback: checkNotification });">
       消息中心
       <ons-icon ng-if="hasNotification" icon="fa-circle" size="8px" style="color: #dc5236; position: relative; bottom: 8px;"></ons-icon>
     </ons-list-item>
