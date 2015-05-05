@@ -1,0 +1,17 @@
+<ons-dialog class="change-nickname-dialog">
+  <ons-toolbar inline>
+    <div class="center">修改昵称</div>
+  </ons-toolbar>
+
+  <div class="nickname-input">
+    <!-- It seems that $parent.$parent is the parentScope that we specify in createDialog's options  -->
+    <input type="text" class="text-input text-input--underbar" placeholder="新昵称" ng-model="$parent.$parent.newNickname">
+  </div>
+
+  <ons-bottom-toolbar>
+    <div class="buttons">
+      <button class="button button--quiet" ng-click="changeNickname()" ng-disabled="waitingSubmit">确定</button>
+      <button class="button button--quiet" ng-click="changeNicknameDialog.hide()" ng-disabled="waitingSubmit">取消</button>
+    </div>
+  </ons-bottom-toolbar>
+</ons-dialog>

@@ -1,10 +1,10 @@
 <ons-page class="left-menu" ng-controller="LeftMenuController">
   <div class="user clearfix">
-    <div class="avatar" ng-click="navi.pushPageWithHistory('user/info-manage.html', { animation: 'fade' });">
+    <div class="avatar" ng-click="navi.pushPageWithHistory('user/setting.html', { animation: 'fade' });">
       <img ng-src="{{ helper.getAvatarUrl(user, 64) }}">
     </div>
     <div class="name">
-      <div class="nickname">
+      <div class="nickname" ng-click="navi.pushPageWithHistory('user/setting.html', { animation: 'fade' });">
         {{ user.get('nickname') }}
       </div>
       <div class="information">

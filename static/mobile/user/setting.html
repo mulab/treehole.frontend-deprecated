@@ -1,0 +1,45 @@
+<ons-page>
+  <div class="user-setting">
+    <ons-toolbar fixed-style>
+      <div class="left">
+        <ons-toolbar-button ng-click="navi.popPageWithHistory({ 'animation': 'fade' })">
+          <ons-icon style="margin-left: 5px;" icon="ion-ios-arrow-back" size="32px"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+      <div class="center">账号设置</div>
+    </ons-toolbar>
+
+    <div ng-controller="UserSettingController">
+      <div class="settings-header">账号信息</div>
+      <ons-list modifier="inset" class="settings-list action-list">
+        <ons-list-item>
+          <div class="clearfix">
+            <div class="left-part">用户名</div>
+            <div class="right-part"><span>{{ user.getUsername() }}</span></div>
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="tappable" ng-click="navi.pushPageWithHistory('user/upload-avatar.html', { animation: 'fade' });">
+          <div class="clearfix">
+            <div class="left-part">头像</div>
+            <div class="right-part">
+              <div class="avatar">
+                <img ng-src="{{ helper.getAvatarUrl(user, 64) }}">
+              </div>
+            </div>
+          </div>
+        </ons-list-item>
+        <ons-list-item modifier="tappable" ng-click="showChangeNicknameDialog()">
+          <div class="clearfix">
+            <div class="left-part">昵称</div>
+            <div class="right-part"><span>{{ user.get('nickname') }}</span></div>
+          </div>
+        </ons-list-item>
+      </ons-list>
+
+      <div class="settings-header">账号安全</div>
+      <ons-list modifier="inset" class="settings-list" ng-click="showChangePasswordDialog()">
+        <ons-list-item modifier="tappable">修改密码</ons-list-item>
+      </ons-list>
+    </div>
+  </div>
+</ons-page>
