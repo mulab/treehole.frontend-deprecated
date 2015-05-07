@@ -2,6 +2,19 @@
 
 var _ = require('lodash');
 
+exports.showAlert = function (message, callback) {
+  var options = {
+    message: message,
+    animation: 'none',
+    title: '消息',
+    buttonLabel: '确定'
+  };
+  if (_.isFunction(callback)) {
+    options.callback = callback;
+  }
+  ons.notification.alert(options);
+};
+
 exports.showErrorAlert = function (message, callback) {
   var options = {
     message: message,

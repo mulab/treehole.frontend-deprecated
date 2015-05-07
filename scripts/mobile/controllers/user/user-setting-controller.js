@@ -79,7 +79,7 @@ module.exports = function ($scope) {
     user.set('nickname', nickname);
     user.save().then(function () {
       changeNicknameDialog.hide({ animation: 'none' });
-      helper.showErrorAlert('修改成功！', onProcessingEnd);
+      helper.showAlert('修改成功！', onProcessingEnd);
     }, function (err) {
       showErrorAlert(changeNicknameDialog, helper.translate(err.message));
     });
@@ -107,7 +107,7 @@ module.exports = function ($scope) {
     var user = AV.User.current();
     user.updatePassword(oldPassword, password).then(function () {
       changePasswordDialog.hide({ animation: 'none' });
-      helper.showErrorAlert('修改成功！', onProcessingEnd);
+      helper.showAlert('修改成功！', onProcessingEnd);
     }, function (err) {
       showErrorAlert(changePasswordDialog, helper.translate(err.message));
     });
