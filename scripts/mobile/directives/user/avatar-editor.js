@@ -1,5 +1,7 @@
 'use strict';
 
+var base64Mime = require('base64mime');
+
 module.exports = function () {
   return {
     restrict: 'A',
@@ -9,9 +11,17 @@ module.exports = function () {
         var file = avatarInput[0].files[0];
         var reader = new FileReader();
         reader.onload = function() {
+          var img = reader.result;
+          if (!base64Mime(img).startsWith('image')) {
+            scope.errorLoading();
+            return;
+          }
           scope.$apply(function () {
-            scope.avatar = reader.result;
+            scope.avatar = img;
           });
+        };
+        reader.onerror = function () {
+          scope.errorLoading();
         };
         scope.$apply(function () {
           scope.waitingLoading = true;

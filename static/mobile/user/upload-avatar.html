@@ -14,9 +14,12 @@
     <div class="avatar-editor" avatar-editor>
       <div class="crop-area-container">
         <div class="crop-area">
-          <img-crop image="avatar" result-image="croppedAvatar" result-image-format="image/png"
+          <img-crop image="avatar" result-image="croppedAvatar"
+                    area-min-size="64"
+                    result-image-format="image/png"
                     on-load-done="waitingLoading = false"
-                    on-load-error="errorLoading()"></img-crop>
+                    on-load-error="errorLoading()">
+          </img-crop>
         </div>
       </div>
 
