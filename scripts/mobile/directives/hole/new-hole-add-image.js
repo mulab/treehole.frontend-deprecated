@@ -33,7 +33,7 @@ module.exports = function ($compile, resizeService) {
               callback: function (answer) {
                 if (answer === 0) {
                   imageBox.remove();
-                  _.remove(scope.images, function (elem) {
+                  _.remove(scope.data.images, function (elem) {
                     return elem.id === currentImageId;
                   });
                 }
