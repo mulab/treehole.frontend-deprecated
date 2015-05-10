@@ -72,12 +72,9 @@
                 {{ comment.getCreatedAt()|formatTime }}
               </div>
             </div>
-            <div class="content"><p>
-              <span ng-if="comment.get('replyTo')">
-                {{ '回复' + (comment.get('anonymous') ? nicknameDict[comment.get('replyTo').get('author').getObjectId()] : comment.get('replyTo').get('author').get('nickname')) + ':' }}
-              </span>
-              {{ comment.get('content') }}
-            </p></div>
+            <div class="content">
+              <p>{{ (comment.get('replyTo') ? '回复' + (comment.get('anonymous') ? nicknameDict[comment.get('replyTo').get('author').getObjectId()] : comment.get('replyTo').get('author').get('nickname')) + ': ' : '') + comment.get('content') }}</p>
+            </div>
           </div>
         </div>
       </ons-list-item>
