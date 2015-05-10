@@ -5,19 +5,20 @@ var _ = require('lodash');
 
 module.exports = function ($scope) {
   $scope.waitingSubmit = false;
+  $scope.data = {};
 
   function onProcessingEnd() {
     $scope.$apply(function () {
-      $scope.waitingSubmit = false;
-      $scope.password = '';
-      $scope.passwordConfirm = '';
+      $scope.data.waitingSubmit = false;
+      $scope.data.password = '';
+      $scope.data.passwordConfirm = '';
     });
   }
 
   $scope.register = function () {
-    var username = $scope.username;
-    var password = $scope.password;
-    var nickname = $scope.nickname;
+    var username = $scope.data.username;
+    var password = $scope.data.password;
+    var nickname = $scope.data.nickname;
 
     $scope.waitingSubmit = true;
     var errorMessages = [];
@@ -41,7 +42,7 @@ module.exports = function ($scope) {
     if (_.isEmpty(password)) {
       errorMessages.push('密码不能为空！');
     }
-    if (password !== $scope.passwordConfirm) {
+    if (password !== $scope.data.passwordConfirm) {
       errorMessages.push('两次输入的密码不一样！');
     }
     if (!_.isEmpty(errorMessages)) {

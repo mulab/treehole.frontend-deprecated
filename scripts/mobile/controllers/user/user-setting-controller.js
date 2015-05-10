@@ -6,6 +6,7 @@ var _ = require('lodash');
 module.exports = function ($scope) {
   $scope.waitingSubmit = false;
   $scope.user = AV.User.current();
+  $scope.data = {};
 
   function onProcessingEnd() {
     $scope.$apply(function () {
@@ -18,7 +19,7 @@ module.exports = function ($scope) {
 
   var changeNicknameDialog;
   $scope.showChangeNicknameDialog = function () {
-    $scope.newNickname = AV.User.current().get('nickname');
+    $scope.data.newNickname = AV.User.current().get('nickname');
     if (changeNicknameDialog) {
       changeNicknameDialog.show();
     } else {
@@ -34,9 +35,9 @@ module.exports = function ($scope) {
 
   var changePasswordDialog;
   $scope.showChangePasswordDialog = function () {
-    $scope.oldPassword = '';
-    $scope.password = '';
-    $scope.passwordConfirm = '';
+    $scope.data.oldPassword = '';
+    $scope.data.password = '';
+    $scope.data.passwordConfirm = '';
     if (changePasswordDialog) {
       changePasswordDialog.show();
     } else {
@@ -60,7 +61,7 @@ module.exports = function ($scope) {
 
   $scope.changeNickname = function () {
     var user = AV.User.current();
-    var nickname = $scope.newNickname;
+    var nickname = $scope.data.newNickname;
 
     $scope.waitingSubmit = true;
     var errorMessages = [];
@@ -86,8 +87,8 @@ module.exports = function ($scope) {
   };
 
   $scope.changePassword = function () {
-    var password = $scope.password;
-    var oldPassword = $scope.oldPassword;
+    var password = $scope.data.password;
+    var oldPassword = $scope.data.oldPassword;
 
     $scope.waitingSubmit = true;
     var errorMessages = [];
@@ -97,7 +98,7 @@ module.exports = function ($scope) {
     if (_.isEmpty(password)) {
       errorMessages.push('新密码不能为空！');
     }
-    if (password !== $scope.passwordConfirm) {
+    if (password !== $scope.data.passwordConfirm) {
       errorMessages.push('两次输入的新密码不一样！');
     }
     if (!_.isEmpty(errorMessages)) {

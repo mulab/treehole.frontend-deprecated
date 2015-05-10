@@ -5,17 +5,18 @@ var _ = require('lodash');
 
 module.exports = function ($scope) {
   $scope.waitingLogin = false;
+  $scope.data = {};
 
   function onProcessingEnd() {
     $scope.$apply(function () {
       $scope.waitingLogin = false;
-      $scope.password = '';
+      $scope.data.password = '';
     });
   }
 
   $scope.login = function () {
-    var username = $scope.username;
-    var password = $scope.password;
+    var username = $scope.data.username;
+    var password = $scope.data.password;
     $scope.waitingLogin = true;
     var errorMessages = [];
     if (_.isEmpty(username)) {

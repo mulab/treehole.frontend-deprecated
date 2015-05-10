@@ -5,6 +5,7 @@ var _ = require('lodash');
 
 module.exports = function ($scope) {
   $scope.waitingSubmit = false;
+  $scope.data = {};
 
   $scope.afterRegister = navi.getCurrentPage().options.afterRegister;
 
@@ -15,8 +16,8 @@ module.exports = function ($scope) {
   }
 
   $scope.submit = function () {
-    var username = $scope.username;
-    var password = $scope.password;
+    var username = $scope.data.username;
+    var password = $scope.data.password;
 
     $scope.waitingSubmit = true;
     var errorMessages = [];

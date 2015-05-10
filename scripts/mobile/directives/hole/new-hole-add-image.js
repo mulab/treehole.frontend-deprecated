@@ -20,7 +20,7 @@ module.exports = function ($compile, resizeService) {
         imageObj.onload = function () {
           var currentImageId = imageId;
           imageId += 1;
-          scope.images.push({ id: currentImageId, name: fileName, dataUrl: dataUrl, width: imageObj.width, height: imageObj.height });
+          scope.data.images.push({ id: currentImageId, name: fileName, dataUrl: dataUrl, width: imageObj.width, height: imageObj.height });
           var imageBox = angular.element('<div class="square-box"><div class="inner"><ons-gesture-detector class="image-box"><img></ons-gesture-detector></div></div>');
           imageBox.find('img').prop('src', dataUrl);
           $compile(imageBox)(scope);

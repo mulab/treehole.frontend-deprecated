@@ -6,7 +6,8 @@ var _ = require('lodash');
 
 module.exports = function ($scope, $rootScope, $compile) {
   $scope.waitingSubmit = false;
-  $scope.images = [];
+  $scope.data = {};
+  $scope.data.images = [];
 
   function onProcessingEnd() {
     $scope.$apply(function () {
@@ -15,7 +16,7 @@ module.exports = function ($scope, $rootScope, $compile) {
   }
 
   $scope.submit = function () {
-    var content = $scope.content;
+    var content = $scope.data.content;
     $scope.waitingSubmit = true;
     var errorMessages = [];
     if (_.isEmpty(content)) {
@@ -27,7 +28,7 @@ module.exports = function ($scope, $rootScope, $compile) {
 
     var modalVisible = false;
 
-    Hole.createNewHole($scope.content, $rootScope.currentChannel, $scope.images, $scope.anonymous, {
+    Hole.createNewHole(content, $rootScope.currentChannel, $scope.data.images, $scope.data.anonymous, {
       onImageUploadStart: function (index) {
         var modalContent = angular.element('<div id="modal-container"><ons-icon icon="ion-load-c" spin="true"></ons-icon><br><br>正在上传第' + (index + 1) + '张图片，共' + ($scope.images.length) + '张</div>');
         $compile(modalContent)($scope);

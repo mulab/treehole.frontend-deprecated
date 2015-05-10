@@ -4,8 +4,7 @@
   </ons-toolbar>
 
   <div class="nickname-input">
-    <!-- It seems that $parent.$parent is the parentScope that we specify in createDialog's options  -->
-    <input type="text" class="text-input text-input--underbar" placeholder="新昵称" ng-model="$parent.$parent.newNickname">
+    <input type="text" class="text-input text-input--underbar" placeholder="新昵称" ng-model="data.newNickname">
   </div>
 
   <ons-bottom-toolbar>

@@ -6,7 +6,7 @@
       </ons-toolbar>
 
       <div class="main">
-        <textarea class="textarea" ng-model="commentContent"
+        <textarea class="textarea" ng-model="data.commentContent"
                   placeholder="{{ replyTo ? '回复' + (replyTo.get('anonymous') ? nicknameDict[replyTo.get('author').getObjectId()] : replyTo.get('author').get('nickname')) : '' }}">
         </textarea>
         <div class="buttons">

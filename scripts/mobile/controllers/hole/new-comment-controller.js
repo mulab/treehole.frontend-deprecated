@@ -6,9 +6,10 @@ var _ = require('lodash');
 
 module.exports = function ($scope) {
   $scope.waitingSubmit = false;
+  $scope.data = {};
 
   $scope.submitComment = function () {
-    var comment = $scope.commentContent;
+    var comment = $scope.data.commentContent;
     $scope.waitingSubmit = true;
     var errorMessages = [];
     if (_.isEmpty(comment)) {
