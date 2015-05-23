@@ -12,6 +12,7 @@ COPY nginx-default /etc/nginx/sites-enabled/default
 RUN npm install -g bower gulp
 COPY . /website
 WORKDIR /website
+RUN nom install
 RUN bower install
 RUN gulp build
 
@@ -19,4 +20,3 @@ WORKDIR /etc/nginx
 CMD ["nginx"]
 
 EXPOSE 80
-EXPOSE 442
