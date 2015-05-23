@@ -1,20 +1,18 @@
 <ons-page>
   <div class="login">
-    <ons-toolbar fixed-style>
-      <div class="center">登陆</div>
-    </ons-toolbar>
-
     <div class="login-form" ng-controller="LoginController">
-      <input type="text" autocorrect="off" autocapitalize="off" ng-model="data.username" class="text-input--underbar" placeholder="用户名">
-      <input type="password" ng-model="data.password" class="text-input--underbar" placeholder="密码">
+      <div style="width: 94%; margin: 0 auto">
+        <input type="text" autocorrect="off" autocapitalize="off" ng-model="data.username" class="text-input--underbar" placeholder="用户名">
+        <input type="password" ng-model="data.password" class="text-input--underbar" placeholder="密码">
+      </div>
+
       <br><br>
       <ons-button modifier="large" class="login-button" ng-click="login()" ng-disabled="waitingLogin">
-        <span ng-if="!waitingLogin">确定</span>
+        <span ng-if="!waitingLogin">登<span style="margin-left: 20px;"></span>陆</span>
         <span ng-if="waitingLogin">登录中</span>
         <span ng-if="waitingLogin" loading-dots></span>
       </ons-button>
       <div class="register-button">
-        <span style="margin-right: 2px">或者</span>
         <a style="color: rgba(24,103,194,0.81)"
            ng-click="navi.pushPageWithHistory('user/register.html', { animation: 'fade' })">注册新账号</a>
       </div>

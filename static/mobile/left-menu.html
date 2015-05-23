@@ -1,46 +1,49 @@
 <ons-page class="left-menu" ng-controller="LeftMenuController">
-  <div class="user clearfix">
-    <div class="avatar" ng-click="navi.pushPageWithHistory('user/setting.html', { animation: 'fade' });">
-      <img ng-src="{{ helper.getAvatarUrl(user, 64) }}">
-    </div>
-    <div class="name">
-      <div class="nickname" ng-click="navi.pushPageWithHistory('user/setting.html', { animation: 'fade' });">
-        {{ user.get('nickname') }}
+  <div class="first-block">
+    <div class="user clearfix">
+      <div class="avatar" ng-click="navi.pushPageWithHistory('user/setting.html', { animation: 'fade' });">
+        <img ng-src="{{ helper.getAvatarUrl(user, 64) }}">
       </div>
-      <div class="information">
-        <span ng-if="user.get('tsinghuaAuth')">清华认证用户</span>
-        <span ng-if="!user.get('tsinghuaAuth')">未认证用户</span>
+      <div class="name">
+        <div class="nickname" ng-click="navi.pushPageWithHistory('user/setting.html', { animation: 'fade' });">
+          {{ user.get('nickname') }}
+        </div>
+        <div class="information">
+          <span ng-if="user.get('tsinghuaAuth')">清华认证用户</span>
+          <span ng-if="!user.get('tsinghuaAuth')">未认证用户</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <ons-list class="menu-list">
-    <ons-list-item class="menu-item" ng-repeat="channel in channels" ng-click="menu.closeMenu(); switchChannel(channel);">
-      <ons-icon icon="fa-circle" size="16px" ng-if="currentChannel === channel"></ons-icon>
-      <ons-icon icon="fa-circle-o" size="16px" ng-if="currentChannel !== channel"></ons-icon>
-      {{ channel.get('name') }}
-    </ons-list-item>
-  </ons-list>
+  <div class="second-block">
+    <ons-list class="menu-list">
+      <ons-list-item class="menu-item" ng-repeat="channel in channels" ng-click="menu.closeMenu(); switchChannel(channel);">
+        <ons-icon icon="fa-circle" size="16px" ng-if="currentChannel === channel"></ons-icon>
+        <ons-icon icon="fa-circle-o" size="16px" ng-if="currentChannel !== channel"></ons-icon>
+        {{ channel.get('name') }}
+      </ons-list-item>
+    </ons-list>
+  </div>
 
-  <br>
-
-  <ons-list class="bottom-menu-list">
-    <ons-list-item class="bottom-menu-item" ng-if="!user.get('tsinghuaAuth')"
-                   ng-click="navi.pushPageWithHistory('user/auth.html', { animation: 'fade' });">
-      进行清华认证
-      <ons-icon icon="fa-circle" size="8px" style="color: #dc5236; position: relative; bottom: 8px;"></ons-icon>
-    </ons-list-item>
-    <ons-list-item class="bottom-menu-item"
-                   ng-click="menu.closeMenu({ animation: 'none' }); navi.pushPageWithHistory('user/notification.html', { animation: 'fade', callback: checkNotification });">
-      消息中心
-      <ons-icon ng-if="hasNotification" icon="fa-circle" size="8px" style="color: #dc5236; position: relative; bottom: 8px;"></ons-icon>
-    </ons-list-item>
-    <ons-list-item class="bottom-menu-item" ng-click="logout()">
-      登出
-    </ons-list-item>
-    <ons-list-item class="bottom-menu-item">
-      FAQ
-    </ons-list-item>
-  </ons-list>
-
+  <div class="third-block">
+    <ons-list class="bottom-menu-list">
+      <ons-list-item class="bottom-menu-item" ng-if="!user.get('tsinghuaAuth')"
+                     ng-click="navi.pushPageWithHistory('user/auth.html', { animation: 'fade' });">
+        进行清华认证
+        <ons-icon icon="fa-circle" size="8px" style="color: #ff5252; position: relative; bottom: 8px;"></ons-icon>
+      </ons-list-item>
+      <ons-list-item class="bottom-menu-item" ng-if="user.get('tsinghuaAuth')"
+                     ng-click="menu.closeMenu({ animation: 'none' }); navi.pushPageWithHistory('user/notification.html', { animation: 'fade', callback: checkNotification });">
+        消息中心
+        <ons-icon ng-if="hasNotification" icon="fa-circle" size="8px" style="color: #ff5252; position: relative; bottom: 8px;"></ons-icon>
+      </ons-list-item>
+      <ons-list-item class="bottom-menu-item" ng-click="logout()">
+        登出
+      </ons-list-item>
+      <ons-list-item class="bottom-menu-item">
+        FAQ
+      </ons-list-item>
+    </ons-list>
+  </div>
 </ons-page>

@@ -78,6 +78,10 @@ module.exports = function ($scope, $rootScope) {
   $scope.refresh = refresh;
 
   $scope.showCommentDialog = function (replyTo) {
+    if (!AV.User.current().get('tsinghuaAuth')) {
+      return;
+    }
+
     var key = replyTo ? replyTo.getObjectId() : '';
 
     function show(dialog) {

@@ -7,6 +7,12 @@
         </ons-toolbar-button>
       </div>
       <div class="center">详情</div>
+      <div class="right">
+        <ons-toolbar-button ng-if="user.get('tsinghuaAuth')" ng-disabled="!hole || !comments"
+                            ng-click="showCommentDialog()">
+          <ons-icon icon="ion-android-add" size="32px"></ons-icon>
+        </ons-toolbar-button>
+      </div>
     </ons-toolbar>
 
     <ons-list ng-if="hole && comments">
@@ -79,13 +85,5 @@
         </div>
       </ons-list-item>
     </ons-list>
-
-    <ons-bottom-toolbar ng-if="user.get('tsinghuaAuth')">
-      <div class="bottom-toolbar">
-        <div class="center">
-          <ons-button modifier="quiet" ng-disabled="!hole || !comments" ng-click="showCommentDialog()">评论</ons-button>
-        </div>
-      </div>
-    </ons-bottom-toolbar>
   </div>
 </ons-page>

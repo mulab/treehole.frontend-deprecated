@@ -1,5 +1,5 @@
 <ons-page ng-controller="HoleListController">
-  <ons-sliding-menu var="menu" menu-page="left-menu.html" max-slide-distance="70%" swipeable side="left">
+  <ons-sliding-menu var="menu" menu-page="left-menu.html" max-slide-distance="67%" swipeable side="left">
 
     <div class="main">
       <ons-page>
@@ -51,6 +51,7 @@
                   <img ng-src="{{ helper.getAnonymousAvatar(hole, 48) }}">
                 </div>
                 <div class="right-part">
+                  <div class="publish-time-float">{{ hole.getCreatedAt()|formatTime }}</div>
                   <div class="nickname">{{ hole.get('anonymous') ? '匿名用户' : hole.get('author').get('nickname') }}</div>
                   <div class="content"><p>{{ hole.get('content') }}</p></div>
                   <div class="images" ng-if="hole.get('images') && hole.get('images').length > 1">
@@ -79,7 +80,6 @@
                         <span>{{ hole.get('commentCount') }}</span>
                       </div>
                     </div>
-                    <div class="publish-time">{{ hole.getCreatedAt()|formatTime }}</div>
                   </div>
                 </div>
               </div>
