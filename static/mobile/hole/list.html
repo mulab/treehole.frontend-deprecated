@@ -27,10 +27,9 @@
               <ons-icon ng-if="hasNotification || !user.get('tsinghuaAuth')"
                         icon="fa-circle" size="8px" style="color: #dc5236; position: relative; bottom: 9px;"></ons-icon>
             </ons-toolbar-button>
-
           </div>
           <div class="center">
-            <span ng-if="currentChannel">{{ currentChannel.get('name') }}</span>
+            <span ng-if="currentChannel">{{ currentChannel === 'all' ? '全部树洞' : currentChannel.get('name') }}</span>
             <span ng-if="!currentChannel">加载中</span>
             <span ng-if="!currentChannel" loading-dots></span>
           </div>

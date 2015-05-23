@@ -18,6 +18,11 @@
 
   <div class="second-block">
     <ons-list class="menu-list">
+      <ons-list-item class="menu-item" ng-click="menu.closeMenu(); switchChannel('all');">
+        <ons-icon icon="fa-circle" size="16px" ng-if="currentChannel === 'all'"></ons-icon>
+        <ons-icon icon="fa-circle-o" size="16px" ng-if="currentChannel !== 'all'"></ons-icon>
+        全部树洞
+      </ons-list-item>
       <ons-list-item class="menu-item" ng-repeat="channel in channels" ng-click="menu.closeMenu(); switchChannel(channel);">
         <ons-icon icon="fa-circle" size="16px" ng-if="currentChannel === channel"></ons-icon>
         <ons-icon icon="fa-circle-o" size="16px" ng-if="currentChannel !== channel"></ons-icon>

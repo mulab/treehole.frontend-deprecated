@@ -13,9 +13,10 @@ module.exports = function ($scope, $rootScope, $timeout) {
     query.find().then(function (channels) {
       $scope.$apply(function () {
         $rootScope.channels = channels;
-        $rootScope.currentChannel = _.find(channels, function (channel) {
-          return channel.get('isDefault');
-        });
+        //$rootScope.currentChannel = _.find(channels, function (channel) {
+        //  return channel.get('isDefault');
+        //});
+        $rootScope.currentChannel = 'all';
       });
       if (_.isFunction(callback)) {
         callback();
@@ -29,7 +30,9 @@ module.exports = function ($scope, $rootScope, $timeout) {
     query.include('author');
     query.include('author.avatar');
     query.include('images');
-    query.equalTo('channel', $rootScope.currentChannel);
+    if ($rootScope.currentChannel !== 'all') {
+      query.equalTo('channel', $rootScope.currentChannel);
+    }
     var holes;
     query.find().then(function (result) {
       holes = result;
