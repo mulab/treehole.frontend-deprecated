@@ -186,14 +186,8 @@ gulp.task('uuid-assets', function () {
   var replaceMobileIndex = gulp.src(['./build/mobile/index.html'])
     .pipe(replace(/\/assets(-[a-z0-9-]+)?\//g, '/assets-' + rev + '/'))
     .pipe(gulp.dest('./build/mobile'));
-  var replaceMobileWelcomePage = gulp.src(['./build/mobile/welcome.html'])
-    .pipe(replace(/\/assets(-[a-z0-9-]+)?\//g, '/assets-' + rev + '/'))
-    .pipe(gulp.dest('./build/mobile'));
-  var replaceConfig = gulp.src(['./build/assets/config.js'])
-    .pipe(replace(/\/assets(-[a-z0-9-]+)?\//g, '/assets-' + rev + '/'))
-    .pipe(gulp.dest('./build/assets-' + rev));
 
-  return merge2(copyAssets, [replaceMainIndex, replaceMobileIndex, replaceMobileWelcomePage, replaceConfig]);
+  return merge2(copyAssets, [replaceMainIndex, replaceMobileIndex]);
 });
 
 gulp.task('cleanup-assets', function (callback) {
