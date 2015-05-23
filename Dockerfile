@@ -1,7 +1,6 @@
 FROM node:0.12
 MAINTAINER mulab.thu@gmail.com
 
-RUN add-apt-repository -y ppa:nginx/stable
 RUN apt-get update
 RUN apt-get install -y nginx
 RUN rm -rf /var/lib/apt/lists/*
@@ -12,8 +11,8 @@ COPY nginx-default /etc/nginx/sites-enabled/default
 RUN npm install -g bower gulp
 COPY . /website
 WORKDIR /website
-RUN nom install
-RUN bower install
+RUN npm install
+RUN bower instal --allow-root
 RUN gulp build
 
 WORKDIR /etc/nginx
