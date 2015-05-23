@@ -14,8 +14,10 @@ WORKDIR /website
 RUN npm install
 RUN bower instal --allow-root
 RUN gulp build
+RUN chown -R www-data /website/build
 
 WORKDIR /etc/nginx
 CMD ["nginx"]
 
 EXPOSE 80
+EXPOSE 443

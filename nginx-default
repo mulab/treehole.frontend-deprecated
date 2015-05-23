@@ -2,6 +2,6 @@ server {
 	listen 80 default_server;
 	listen [::]:80 default_server ipv6only=on;
 	location / {
-		root /website;
+		root /website/build;
 	}
 }
