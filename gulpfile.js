@@ -177,7 +177,7 @@ gulp.task('uuid-assets', function () {
   var rev = uuid.v1();
   console.log('Reversion UUID is ' + rev);
 
-  var copyAssets = gulp.src(['./build/assets/**/*', '!./build/assets/config.js'])
+  var copyAssets = gulp.src(['./build/assets/**/*'])
     .pipe(gulp.dest('./build/assets-' + rev));
 
   var replaceMainIndex = gulp.src(['./build/index.html'])
