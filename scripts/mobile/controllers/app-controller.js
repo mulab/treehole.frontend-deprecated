@@ -41,7 +41,7 @@ module.exports = function ($scope, $rootScope) {
         }
       });
     } else {
-      navi.helper.redirectToIndex({ animation: 'none' });
+      navi.pushPageWithHistory('welcome.html', { animation: 'none' });
     }
   });
 };
