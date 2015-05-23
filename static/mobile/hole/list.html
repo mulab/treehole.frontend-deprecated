@@ -34,7 +34,7 @@
             <span ng-if="!currentChannel" loading-dots></span>
           </div>
           <div class="right">
-            <ons-toolbar-button ng-if="user.get('tsinghuaAuth') && currentChannel"
+            <ons-toolbar-button ng-if="user.get('tsinghuaAuth') && currentChannel && currentChannel !== 'all'"
                                 ng-click="navi.pushPageWithHistory('hole/new.html', { animation: 'fade', callback: refreshList })">
               <ons-icon icon="ion-android-add" size="32px"></ons-icon>
             </ons-toolbar-button>

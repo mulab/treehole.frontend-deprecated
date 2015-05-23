@@ -12,10 +12,9 @@ module.exports = function ($scope, $rootScope, $timeout) {
     query.ascending('index');
     query.find().then(function (channels) {
       $scope.$apply(function () {
-        $rootScope.channels = channels;
-        //$rootScope.currentChannel = _.find(channels, function (channel) {
-        //  return channel.get('isDefault');
-        //});
+        $rootScope.channels = _.filter(channels, function (channel) {
+          return channel.get('shownInSidebar');
+        });
         $rootScope.currentChannel = 'all';
       });
       if (_.isFunction(callback)) {

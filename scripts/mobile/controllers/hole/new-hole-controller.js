@@ -8,6 +8,7 @@ module.exports = function ($scope, $rootScope, $compile) {
   $scope.waitingSubmit = false;
   $scope.data = {};
   $scope.data.images = [];
+  $scope.data.anonymous = $rootScope.currentChannel.get('defaultAnonymous');
 
   function onProcessingEnd() {
     $scope.$apply(function () {
