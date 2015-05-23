@@ -1,6 +1,6 @@
 'use strict';
 
-var Notification = require('models/Notification');
+var Notification = require('models/notification');
 var _ = require('lodash');
 
 module.exports = function ($scope, $rootScope) {

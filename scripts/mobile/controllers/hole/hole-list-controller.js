@@ -2,7 +2,7 @@
 
 var Hole = require('models/hole');
 var Channel = require('models/channel');
-var Notification = require('models/Notification');
+var Notification = require('models/notification');
 var pushService = require('../../push-service');
 var _ = require('lodash');
 
